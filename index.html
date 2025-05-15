@@ -6,70 +6,139 @@
     <title>Kişisel Web Sitesi</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Kişisel Web Sitesi</a>
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code me-2"></i>Kişisel Portfolyo
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Hakkında</a>
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home me-1"></i>Hakkında
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cv.html">Eğitim Bilgileri</a>
+                        <a class="nav-link" href="cv.html">
+                            <i class="fas fa-graduation-cap me-1"></i>Eğitim
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sehrim.html">Şehrim</a>
+                        <a class="nav-link" href="sehrim.html">
+                            <i class="fas fa-map-marker-alt me-1"></i>Şehrim
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="mirasimiz.html">Mirasımız</a>
+                        <a class="nav-link" href="mirasimiz.html">
+                            <i class="fas fa-landmark me-1"></i>Mirasımız
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ilgi-alanlari.html">İlgi Alanları</a>
+                        <a class="nav-link" href="ilgi-alanlari.html">
+                            <i class="fas fa-heart me-1"></i>İlgi Alanları
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Giriş</a>
+                        <a class="nav-link" href="login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i>Giriş
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="iletisim.html">İletişim</a>
+                        <a class="nav-link" href="iletisim.html">
+                            <i class="fas fa-envelope me-1"></i>İletişim
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <header class="bg-light py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5">
+                        <h1 class="display-5 fw-bolder mb-4">Hoşgeldiniz</h1>
+                        <p class="lead fw-normal mb-4">Bu web sitesi, Web Teknolojileri dersi projesi kapsamında geliştirilmiştir. Kişisel bilgilerim, memleketim ve ilgi alanlarım hakkında detaylı bilgi bulabilirsiniz.</p>
+                        <div class="d-grid gap-3 d-sm-flex">
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="cv.html">Özgeçmişim</a>
+                            <a class="btn btn-outline-dark btn-lg px-4" href="iletisim.html">İletişime Geç</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                    <img class="img-fluid rounded-3 my-5" src="https://via.placeholder.com/600x400" alt="Hero Image">
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- Main Content -->
     <main class="container my-5">
         <section class="row">
             <div class="col-md-8">
-                <h1 class="mb-4">Hoşgeldiniz</h1>
-                <p class="lead">Bu web sitesi, Web Teknolojileri dersi projesi kapsamında geliştirilmiştir.</p>
-                
-                <h2 class="mt-5">Hakkımda</h2>
-                <p>
+                <h2 class="mb-4">Hakkımda</h2>
+                <p class="lead">
                     Merhaba, ben [Adınız Soyadınız]. [Üniversite/Bölüm] öğrencisiyim. Bu sayfada kendim ve memleketim hakkında bilgiler paylaşmaktayım.
                 </p>
                 
-                <h3 class="mt-4">Hobilerim</h3>
-                <ul>
-                    <li>Hobi 1</li>
-                    <li>Hobi 2</li>
-                    <li>Hobi 3</li>
-                </ul>
+                <div class="row mt-5">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3 p-2 d-inline-block">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h3 class="card-title h5">Hobilerim</h3>
+                                <ul>
+                                    <li>Hobi 1</li>
+                                    <li>Hobi 2</li>
+                                    <li>Hobi 3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3 p-2 d-inline-block">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h3 class="card-title h5">Becerilerim</h3>
+                                <ul>
+                                    <li>Beceri 1</li>
+                                    <li>Beceri 2</li>
+                                    <li>Beceri 3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <img src="https://via.placeholder.com/300" class="card-img-top" alt="Profil Resmi">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h5 class="card-title">[Adınız Soyadınız]</h5>
-                        <p class="card-text">[Üniversite/Bölüm]</p>
+                        <p class="card-text text-muted">[Üniversite/Bölüm]</p>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a href="#" class="btn btn-sm btn-outline-dark mx-1"><i class="fab fa-github"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-dark mx-1"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-dark mx-1"><i class="fab fa-twitter"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,9 +146,34 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2024 Kişisel Web Sitesi. Tüm hakları saklıdır.</p>
+    <footer class="text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Kişisel Portfolyo</h5>
+                    <p class="small">Web Teknolojileri dersi kapsamında hazırlanmış kişisel web sitesi projesi.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Hızlı Bağlantılar</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Hakkında</a>
+                        <a href="cv.html">Eğitim</a>
+                        <a href="sehrim.html">Şehrim</a>
+                        <a href="mirasimiz.html">Mirasımız</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>İletişim</h5>
+                    <p class="small">
+                        <i class="fas fa-envelope me-2"></i>email@example.com<br>
+                        <i class="fas fa-phone me-2"></i>+90 123 456 7890
+                    </p>
+                </div>
+            </div>
+            <hr class="my-3 bg-light opacity-25">
+            <div class="text-center">
+                <p class="small mb-0">&copy; 2024 Kişisel Web Sitesi. Tüm hakları saklıdır.</p>
+            </div>
         </div>
     </footer>
 
