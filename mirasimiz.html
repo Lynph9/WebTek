@@ -3,221 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirasımız - Kişisel Web Sitesi</title>
+    <title>Eskişehir Mirasımız - Kişisel Web Sitesi</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Kişisel Web Sitesi</a>
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code me-2"></i>Kişisel Portfolyo
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Hakkında</a>
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Hakkında
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cv.html">Eğitim Bilgileri</a>
+                        <a class="nav-link" href="cv.html">
+                            <i class="fas fa-graduation-cap me-1"></i>Eğitim
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sehrim.html">Şehrim</a>
+                        <a class="nav-link" href="sehrim.html">
+                            <i class="fas fa-map-marker-alt me-1"></i>Şehrim
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="mirasimiz.html">Mirasımız</a>
+                        <a class="nav-link active" href="mirasimiz.html">
+                            <i class="fas fa-landmark me-1"></i>Mirasımız
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ilgi-alanlari.html">İlgi Alanları</a>
+                        <a class="nav-link" href="ilgi-alanlari.html">
+                            <i class="fas fa-heart me-1"></i>İlgi Alanları
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Giriş</a>
+                        <a class="nav-link" href="login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i>Giriş
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="iletisim.html">İletişim</a>
+                        <a class="nav-link" href="iletisim.html">
+                            <i class="fas fa-envelope me-1"></i>İletişim
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Page Header -->
+    <header class="bg-light py-4">
+        <div class="container">
+            <h1>Eskişehir'in Kültürel Mirası</h1>
+            <p class="lead">Odunpazarı Tarihi Evleri ve çevresine bir bakış.</p>
+        </div>
+    </header>
+
     <!-- Main Content -->
     <main class="container my-5">
-        <header class="text-center mb-5">
-            <h1>Mirasımız</h1>
-            <p class="lead">Şehrimizin önemli kültürel mirası hakkında bilgiler.</p>
-        </header>
-
-        <!-- Kültürel Miras - Ana Bölüm -->
-        <section class="row mb-5">
-            <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x400?text=Kültürel+Miras" class="img-fluid rounded mb-3" alt="Kültürel Miras">
-            </div>
-            <div class="col-md-6">
-                <h2>[Kültürel Miras Adı]</h2>
-                <p class="lead">
-                    [Kültürel mirasın kısa tanıtımı ve önemi hakkında bir giriş paragrafı.]
-                </p>
-                <p>
-                    [Kültürel mirasın detaylı açıklaması. Tarihi, mimarisi, kültürel önemi ve neden korunması gerektiğine dair bilgiler.]
-                </p>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <strong>İnşa Tarihi:</strong> [Tarih]
-                    </div>
-                    <div>
-                        <strong>Mimarı:</strong> [Mimar Adı]
-                    </div>
-                    <div>
-                        <strong>Konum:</strong> [Konum]
-                    </div>
+        <!-- Slider Section -->
+        <section id="miras-slider" class="mb-5">
+            <h2 class="mb-4">Odunpazarı'ndan Kareler</h2>
+            <div id="odunpazariCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#odunpazariCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#odunpazariCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#odunpazariCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#odunpazariCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 </div>
-            </div>
-        </section>
-
-        <!-- Tarihçe -->
-        <section class="mb-5 bg-light p-4 rounded">
-            <h3>Tarihçe</h3>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        [Kültürel mirasın tarihçesi hakkında detaylı bilgiler. İnşa edildiği dönem, geçirdiği değişimler, tarihi olaylar içindeki rolü ve günümüze kadar olan serüveni.]
-                    </p>
-                    <p>
-                        [Tarihçenin devamı ve dönemler boyunca yaşanan önemli olaylar, restorasyon çalışmaları vb.]
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Mimari ve Sanatsal Özellikler -->
-        <section class="mb-5">
-            <h3>Mimari ve Sanatsal Özellikler</h3>
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200?text=Özellik+1" class="card-img-top" alt="Özellik 1">
-                        <div class="card-body">
-                            <h5 class="card-title">[Özellik 1]</h5>
-                            <p class="card-text">[Özellik 1 hakkında detaylı bilgi ve açıklama.]</p>
+                <div class="carousel-inner rounded">
+                    <div class="carousel-item active">
+                        <a href="#odunpazari-genel">
+                            <img src="https://via.placeholder.com/1200x500?text=Odunpazar%C4%B1+Sokaklar%C4%B1" class="d-block w-100" alt="Odunpazarı Sokakları">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                            <h5>Odunpazarı Sokakları</h5>
+                            <p>Tarihi dokusuyla büyüleyen Odunpazarı'nın renkli sokakları.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a href="#odunpazari-evleri">
+                            <img src="https://via.placeholder.com/1200x500?text=Tipik+Odunpazar%C4%B1+Evi" class="d-block w-100" alt="Tipik Odunpazarı Evi">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                            <h5>Geleneksel Odunpazarı Evleri</h5>
+                            <p>Ahşap ve kerpiçten yapılmış, cumbalı tarihi evler.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a href="#atlihan-carsisi">
+                            <img src="https://via.placeholder.com/1200x500?text=Atlihan+El+Sanatlar%C4%B1+%C3%87ar%C5%9F%C4%B1s%C4%B1" class="d-block w-100" alt="Atlıhan El Sanatları Çarşısı">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                            <h5>Atlıhan El Sanatları Çarşısı</h5>
+                            <p>Lületaşı ve diğer yerel el sanatlarının sergilendiği tarihi han.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a href="#kursunlu-kulliyesi">
+                             <img src="https://via.placeholder.com/1200x500?text=Kur%C5%9Funlu+K%C3%BClliyesi" class="d-block w-100" alt="Kurşunlu Külliyesi">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                            <h5>Kurşunlu Külliyesi</h5>
+                            <p>Tarihi cami, medrese ve lületaşı müzesini barındıran önemli bir yapı.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200?text=Özellik+2" class="card-img-top" alt="Özellik 2">
-                        <div class="card-body">
-                            <h5 class="card-title">[Özellik 2]</h5>
-                            <p class="card-text">[Özellik 2 hakkında detaylı bilgi ve açıklama.]</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200?text=Özellik+3" class="card-img-top" alt="Özellik 3">
-                        <div class="card-body">
-                            <h5 class="card-title">[Özellik 3]</h5>
-                            <p class="card-text">[Özellik 3 hakkında detaylı bilgi ve açıklama.]</p>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#odunpazariCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#odunpazariCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </section>
 
-        <!-- Kültürel Önemi -->
-        <section class="mb-5">
-            <h3>Kültürel Önemi</h3>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="accordion" id="kulturelOnemAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading1">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                    Tarihi Değeri
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#kulturelOnemAccordion">
-                                <div class="accordion-body">
-                                    <p>[Kültürel mirasın tarihi değeri ve önemi hakkında bilgi.]</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    Toplumsal Değeri
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#kulturelOnemAccordion">
-                                <div class="accordion-body">
-                                    <p>[Kültürel mirasın toplum için önemi ve değeri hakkında bilgi.]</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    Sanatsal Değeri
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#kulturelOnemAccordion">
-                                <div class="accordion-body">
-                                    <p>[Kültürel mirasın sanatsal değeri ve önemi hakkında bilgi.]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Ziyaret Bilgileri -->
-        <section class="mb-5">
-            <div class="card border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Ziyaret Bilgileri</h3>
-                </div>
+        <section id="odunpazari-detay">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><strong>Adres:</strong> [Adres bilgisi]</li>
-                                <li class="list-group-item"><strong>Açık Olduğu Saatler:</strong> [Ziyaret saatleri]</li>
-                                <li class="list-group-item"><strong>Giriş Ücreti:</strong> [Ücret bilgisi]</li>
-                                <li class="list-group-item"><strong>İletişim:</strong> [Telefon/E-posta]</li>
-                            </ul>
+                    <h2 class="card-title">Odunpazarı Tarihi Kent Merkezi</h2>
+                    <p class="lead">Eskişehir'in en eski yerleşim yerlerinden biri olan Odunpazarı, adını bölgedeki odun ticaretinden almıştır. Osmanlı döneminden kalma tarihi evleri, daracık sokakları ve kültürel dokusuyla UNESCO Dünya Mirası Geçici Listesi'nde yer almaktadır.</p>
+                </div>
+            </div>
+            
+            <article id="odunpazari-genel" class="mb-5 pt-4">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/400x300?text=Odunpazar%C4%B1+Genel+G%C3%B6r%C3%BCn%C3%BCm" class="img-fluid rounded-start" alt="Odunpazarı Genel Görünüm">
                         </div>
-                        <div class="col-md-6">
-                            <div class="ratio ratio-16x9">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3019.9533903453007!2d30.326126476233176!3d40.74189977138593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ccadf6b4ff39d9%3A0xd8d2a5aefc621c6!2sSakarya%20%C3%9Cniversitesi!5e0!3m2!1str!2str!4v1683556600000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">Odunpazarı Sokakları ve Atmosferi</h3>
+                                <p>Odunpazarı'nın Arnavut kaldırımlı sokaklarında dolaşmak, zamanda yolculuk yapmak gibidir. Restore edilmiş tarihi konaklar, butik oteller, kafeler, sanat atölyeleri ve müzelerle doludur. Her köşe başında farklı bir güzellik sizi bekler.</p>
+                                <p>Bölge, fotoğraf tutkunları için eşsiz manzaralar sunar. Özellikle gün batımında evlerin aldığı renkler görülmeye değerdir.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </article>
 
-        <!-- Koruma Çalışmaları -->
-        <section class="mb-5">
-            <h3>Koruma Çalışmaları</h3>
-            <p>
-                [Kültürel mirasın korunması için yapılan çalışmalar, restorasyon projeleri, gelecek planları hakkında bilgiler.]
-            </p>
-            <div class="alert alert-info" role="alert">
-                <h4 class="alert-heading">Nasıl Destek Olabilirsiniz?</h4>
-                <p>[Ziyaretçilerin ve vatandaşların kültürel mirasın korunmasına nasıl destek olabileceği hakkında bilgiler.]</p>
-            </div>
+            <article id="odunpazari-evleri" class="mb-5 pt-4">
+                 <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">Geleneksel Odunpazarı Evleri Mimarisi</h3>
+                                <p>Odunpazarı evleri, tipik Osmanlı sivil mimarisinin en güzel örneklerindendir. Genellikle iki katlı olan bu evler, ahşap çatkı arası kerpiç dolgu tekniğiyle inşa edilmiştir. Üst katlardaki cumbalar (sokağa doğru çıkıntılı pencereler) evlere karakteristik bir görünüm kazandırır.</p>
+                                <p>Evlerin iç düzenlemesi de geleneksel Türk evi yapısını yansıtır. Geniş avlular, hayat adı verilen sofalar ve ahşap işçiliğinin zarif detayları dikkat çeker. Birçoğu restore edilerek müze, otel veya kafe olarak hizmet vermektedir.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/400x300?text=Odunpazar%C4%B1+Ev+Detay" class="img-fluid rounded-end" alt="Odunpazarı Ev Detay">
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="atlihan-carsisi" class="mb-5 pt-4">
+                <div class="card">
+                     <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/400x300?text=Atlihan" class="img-fluid rounded-start" alt="Atlıhan Çarşısı">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">Atlıhan El Sanatları Çarşısı</h3>
+                                <p>Odunpazarı'nın kalbinde yer alan Atlıhan, 19. yüzyılda konaklayan tüccarların atlarını bağladığı bir han olarak inşa edilmiştir. Günümüzde restore edilerek geleneksel el sanatları çarşısı olarak hizmet vermektedir.</p>
+                                <p>Burada Eskişehir'in dünyaca ünlü lületaşından yapılmış pipolar, takılar ve süs eşyalarının yanı sıra cam sanatları, seramikler ve diğer yerel el sanatları ürünlerini bulabilirsiniz. Çarşının avlusunda dinlenip bir şeyler içmek de keyiflidir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="kursunlu-kulliyesi" class="mb-5 pt-4">
+                <div class="card">
+                    <div class="row g-0">
+                         <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">Kurşunlu Külliyesi ve Cam Sanatları Müzesi</h3>
+                                <p>16. yüzyılda Osmanlı vezirlerinden Çoban Mustafa Paşa tarafından yaptırılan Kurşunlu Külliyesi, cami, şadırvan, medrese, kervansaray, sıbyan mektebi ve imaret gibi bölümlerden oluşur. Adını kurşunla kaplı kubbesinden alan cami, külliyenin merkezindedir.</p>
+                                <p>Külliyenin medrese bölümü günümüzde Türkiye'nin ilk cam sanatları müzesi olan Eskişehir Çağdaş Cam Sanatları Müzesi'ne ev sahipliği yapmaktadır. Ayrıca Lületaşı Müzesi de külliye kompleksi içinde yer alır.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                           <img src="https://via.placeholder.com/400x300?text=Kur%C5%9Funlu+K%C3%BClliyesi+Giri%C5%9F" class="img-fluid rounded-end" alt="Kurşunlu Külliyesi Giriş">
+                        </div>
+                    </div>
+                </div>
+            </article>
+
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2024 Kişisel Web Sitesi. Tüm hakları saklıdır.</p>
+    <footer class="text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Kişisel Portfolyo</h5>
+                    <p class="small">Web Teknolojileri dersi kapsamında hazırlanmış kişisel web sitesi projesi.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Hızlı Bağlantılar</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Hakkında</a>
+                        <a href="cv.html">Eğitim</a>
+                        <a href="sehrim.html">Şehrim</a>
+                        <a href="mirasimiz.html">Mirasımız</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>İletişim</h5>
+                    <p class="small">
+                        <i class="fas fa-envelope me-2"></i>email@example.com<br>
+                        <i class="fas fa-phone me-2"></i>+90 123 456 7890
+                    </p>
+                </div>
+            </div>
+            <hr class="my-3 bg-light opacity-25">
+            <div class="text-center">
+                <p class="small mb-0">&copy; 2024 Kişisel Web Sitesi. Tüm hakları saklıdır.</p>
+            </div>
         </div>
     </footer>
 
