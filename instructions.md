@@ -61,7 +61,6 @@
     -   **GitHub**:
         -   Üzerinde bir proje oluşturulup (**proje herkese açık olmalı**).
         -   İlk etapta proje hakkında kısa bir bilgi dökümanı (README.md) GitHub'a yüklenmelidir.
-        -   Proje ilerledikçe, gelişmeler GitHub'a yüklenmeye devam edilmelidir.
         -   Proje teslim edilmeden GitHub'da farklı günlerde **minimum 10 commit olmalıdır**. Daha az commit olması durumunda bu bölümden kesinlikle puan verilmeyecektir.
         -   GitHub üzerinde bir projenin erkenden oluşturulması önemlidir.
     -   **Hosting**:
