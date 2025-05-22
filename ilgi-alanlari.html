@@ -81,59 +81,32 @@
             </div>
         </section>
 
-        <!-- Movie Details Modal -->
-        <div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="movieDetailModalLabel">Film Detayları</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="movieDetailContent">
-                        <!-- Movie details will be displayed here -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Book API Integration Section -->
+        <!-- Astronomy Picture of the Day (APOD) Section -->
         <section class="mb-5">
-            <h2 class="mb-4">Kitap Önerileri</h2>
-            <p>Aşağıda, Open Library API'sinden alınan kitap önerileri bulunmaktadır.</p>
+            <h2 class="mb-4">Günün Astronomi Fotoğrafı (NASA APOD)</h2>
+            <p>NASA'nın "Günün Astronomi Fotoğrafı" (APOD) servisinden rastgele bir görsel ve açıklamasını keşfedin.</p>
 
             <!-- API Controls -->
             <div class="mb-4">
-                <div class="d-flex gap-2">
-                    <button id="getBooks" class="btn btn-success">Kitapları Getir</button>
-                    <select id="bookCategory" class="form-select w-auto">
-                        <option value="fantasy">Fantastik</option>
-                        <option value="science_fiction">Bilim Kurgu</option>
-                        <option value="mystery">Gizem</option>
-                        <option value="history">Tarih</option>
-                        <option value="philosophy">Felsefe</option>
-                    </select>
-                </div>
+                <button id="getApodButton" class="btn btn-warning">Rastgele APOD Getir</button>
             </div>
 
-            <!-- Book Loading Indicator -->
-            <div id="bookLoadingIndicator" class="text-center d-none">
-                <div class="spinner-border text-success" role="status">
+            <!-- APOD Loading Indicator -->
+            <div id="apodLoadingIndicator" class="text-center d-none">
+                <div class="spinner-border text-warning" role="status">
                     <span class="visually-hidden">Yükleniyor...</span>
                 </div>
-                <p>Kitap verileri getiriliyor, lütfen bekleyin...</p>
+                <p>Astronomi verisi getiriliyor, lütfen bekleyin...</p>
             </div>
 
-            <!-- Book API Error Message -->
-            <div id="bookErrorMessage" class="alert alert-danger d-none" role="alert">
-                Kitap verileri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.
+            <!-- APOD API Error Message -->
+            <div id="apodErrorMessage" class="alert alert-danger d-none" role="alert">
+                <!-- Error message will be set by JS -->
             </div>
 
-            <!-- Books Container -->
-            <div class="row" id="booksContainer">
-                <!-- API results will be displayed here -->
+            <!-- APOD Container -->
+            <div id="apodContainer" class="">
+                <!-- APOD result will be displayed here -->
             </div>
         </section>
     </main>
@@ -156,8 +129,16 @@
         let dogErrorMessage;
         let getDogPhotoButton;
 
+        // APOD DOM Elements
+        let apodContainer;
+        let apodLoadingIndicator;
+        let apodErrorMessage;
+        let getApodButton;
+
         // Dog API Constants
         const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random';
+        // NASA APOD API - using DEMO_KEY for now, can fetch a few random images.
+        const APOD_API_URL = 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1'; // count=1 for a single random image
 
         // Fetch random dog photo
         async function fetchDogPhoto() {
@@ -224,6 +205,91 @@
                 dogErrorMessage.classList.remove('d-none');
             }
         }
+
+        // Fetch APOD data
+        async function fetchApod() {
+            if (!apodContainer || !apodLoadingIndicator || !apodErrorMessage) {
+                console.error("APOD API DOM elements not ready or not found.");
+                if (typeof document !== 'undefined' && document.getElementById('apodErrorMessage')) {
+                    const errElem = document.getElementById('apodErrorMessage');
+                    if (errElem) {
+                        errElem.textContent = "Sayfa bileşenleri başlatılamadı (APOD).";
+                        errElem.classList.remove('d-none');
+                    }
+                }
+                return;
+            }
+
+            showApodLoading(true);
+            hideApodError();
+            apodContainer.innerHTML = ''; // Clear previous content
+
+            try {
+                const response = await fetch(APOD_API_URL);
+                if (!response.ok) {
+                    throw new Error(`APOD API yanıt vermedi (${response.status})`);
+                }
+                const data = await response.json();
+                // APOD API with count=1 returns an array with one item
+                if (data && data.length > 0 && data[0].url) {
+                    displayApod(data[0]);
+                } else {
+                    throw new Error('APOD verisi formatı hatalı veya beklenmedik.');
+                }
+            } catch (error) {
+                console.error('Error fetching APOD data:', error);
+                showApodError(`APOD verisi yüklenemedi: ${error.message}`);
+            } finally {
+                showApodLoading(false);
+            }
+        }
+
+        // Display APOD data
+        function displayApod(apodData) {
+            if (apodContainer) {
+                let mediaHtml = '';
+                if (apodData.media_type === 'image') {
+                    mediaHtml = `<img src="${apodData.url}" class="img-fluid rounded shadow-sm mb-3" alt="${apodData.title}" style="max-height: 600px; max-width: 100%;">`;
+                } else if (apodData.media_type === 'video') {
+                    // Basic video embedding, might need more robust handling for different video sources
+                    mediaHtml = `
+                        <div class="embed-responsive embed-responsive-16by9 mb-3">
+                            <iframe class="embed-responsive-item" src="${apodData.url}" allowfullscreen title="${apodData.title}"></iframe>
+                        </div>
+                        <p><small>Video APOD. <a href="${apodData.url}" target="_blank">Videoyu yeni sekmede aç</a></small></p>
+                    `;
+                } else {
+                    mediaHtml = `<p class="text-muted">Desteklenmeyen medya türü: ${apodData.media_type}</p>`;
+                }
+
+                apodContainer.innerHTML = `
+                    <h3 class="mb-2">${apodData.title}</h3>
+                    <p class="text-muted">Tarih: ${apodData.date}</p>
+                    ${mediaHtml}
+                    <p style="text-align: justify;">${apodData.explanation}</p>
+                `;
+            }
+        }
+
+        // Helper functions for APOD API
+        function showApodLoading(show) {
+            if (apodLoadingIndicator) {
+                apodLoadingIndicator.classList.toggle('d-none', !show);
+            }
+        }
+
+        function hideApodError() {
+            if (apodErrorMessage) {
+                apodErrorMessage.classList.add('d-none');
+            }
+        }
+
+        function showApodError(message = 'Astronomi verisi alınırken bir hata oluştu.') {
+            if (apodErrorMessage) {
+                apodErrorMessage.textContent = message;
+                apodErrorMessage.classList.remove('d-none');
+            }
+        }
         
         if (typeof document !== 'undefined') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -233,20 +299,42 @@
                 dogErrorMessage = document.getElementById('dogErrorMessage');
                 getDogPhotoButton = document.getElementById('getDogPhotoButton');
 
+                apodContainer = document.getElementById('apodContainer');
+                apodLoadingIndicator = document.getElementById('apodLoadingIndicator');
+                apodErrorMessage = document.getElementById('apodErrorMessage');
+                getApodButton = document.getElementById('getApodButton');
+
                 if (getDogPhotoButton) {
                     getDogPhotoButton.addEventListener('click', fetchDogPhoto);
                 } else {
                     console.error("Get Dog Photo button not found on DOMContentLoaded. Check ID 'getDogPhotoButton'.");
                 }
-                
-                // Check if all essential elements are found before making the initial call
-                if (dogPhotoContainer && dogLoadingIndicator && dogErrorMessage && getDogPhotoButton) {
-                    fetchDogPhoto(); // Initially load a dog photo
+
+                if (getApodButton) {
+                    getApodButton.addEventListener('click', fetchApod);
                 } else {
-                    console.error("One or more Dog API DOM elements were not found. Initial fetch cancelled.");
+                    console.error("Get APOD button not found on DOMContentLoaded. Check ID 'getApodButton'.");
+                }
+                
+                // Initial fetches
+                if (dogPhotoContainer && dogLoadingIndicator && dogErrorMessage && getDogPhotoButton) {
+                    fetchDogPhoto(); 
+                } else {
+                    console.error("One or more Dog API DOM elements were not found. Initial dog fetch cancelled.");
                     const errElem = typeof document !== 'undefined' ? document.getElementById('dogErrorMessage') : null; 
                     if(errElem) {
-                        errElem.textContent = "Sayfa öğeleri yüklenirken bir sorun oluştu. Lütfen konsolu kontrol edin.";
+                        errElem.textContent = "Sayfa öğeleri (Köpek API) yüklenirken bir sorun oluştu.";
+                        errElem.classList.remove('d-none');
+                    }
+                }
+
+                if (apodContainer && apodLoadingIndicator && apodErrorMessage && getApodButton) {
+                    fetchApod(); // Initially load an APOD image/video
+                } else {
+                    console.error("One or more APOD API DOM elements were not found. Initial APOD fetch cancelled.");
+                    const errElem = typeof document !== 'undefined' ? document.getElementById('apodErrorMessage') : null; 
+                    if(errElem) {
+                        errElem.textContent = "Sayfa öğeleri (APOD API) yüklenirken bir sorun oluştu.";
                         errElem.classList.remove('d-none');
                     }
                 }
