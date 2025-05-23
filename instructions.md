@@ -62,7 +62,7 @@
         -   Üzerinde bir proje oluşturulup (**proje herkese açık olmalı**).
         -   İlk etapta proje hakkında kısa bir bilgi dökümanı (README.md) GitHub'a yüklenmelidir.
         -   Proje teslim edilmeden GitHub'da farklı günlerde **minimum 10 commit olmalıdır**. Daha az commit olması durumunda bu bölümden kesinlikle puan verilmeyecektir.
-        -   GitHub üzerinde bir projenin erkenden oluşturulması önemlidir.
+    
     -   **Hosting**:
         -   Proje, hosting hizmeti veren bir sitede yer almalıdır.
         -   İnternette pek çok ücretsiz (tercihinize göre ücretli de olabilir) host hizmeti veren site mevcuttur. (Örneğin `https://tr.000webhost.com/`, `https://profreehost.com/`, `https://www.infinityfree.net/` ya da başka bir site).

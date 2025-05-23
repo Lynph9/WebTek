@@ -48,65 +48,41 @@
     <!-- Main Content -->
     <main class="container my-5">
         <header class="text-center mb-5">
-            <h1>İlgi Alanım: Köpekler</h1>
-            <p class="lead">Köpeklere olan sevgimi ve ilgimi yansıtan bu bölümde, onların sevimli dünyasından rastgele kareler bulabilirsiniz.</p>
+            <h1>İlgi Alanlarım</h1>
+            <p class="lead">Boş zamanlarımda keyif aldığım ve yeni şeyler keşfettiğim bazı ilgi alanlarım.</p>
         </header>
 
-        <!-- Random Dog Photo Section -->
+        <!-- FreeToGame API Section -->
         <section class="mb-5">
-            <h2 class="mb-4">Sevimli Dostlarımızdan Kareler</h2>
-            <p>Her tıklamada farklı bir köpek fotoğrafıyla karşılaşarak gününüze neşe katın!</p>
-
-            <!-- API Controls -->
-            <div class="mb-4">
-                <button id="getDogPhotoButton" class="btn btn-info">Yeni Fotoğraf Getir</button>
+            <h2 class="mb-4">Gelecek Oyun Maceralarım: Ücretsiz Keşifler</h2>
+            <p>Her zaman yeni ve heyecan verici ücretsiz oyunlar arayışındayım. İşte FreeToGame API'sinden bazı güncel öneriler:</p>
+            <div class="mb-3">
+                <button id="getFreeGamesButton" class="btn btn-primary">Yeni Oyun Önerileri Getir</button>
             </div>
-
-            <!-- Loading Indicator -->
-            <div id="dogLoadingIndicator" class="text-center d-none">
-                <div class="spinner-border text-info" role="status">
-                    <span class="visually-hidden">Yükleniyor...</span>
-                </div>
-                <p>Fotoğraf getiriliyor, lütfen bekleyin...</p>
+            <div id="freeGamesLoadingIndicator" class="text-center d-none">
+                <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Yükleniyor...</span></div>
+                <p>Oyun verileri getiriliyor...</p>
             </div>
-
-            <!-- API Error Message -->
-            <div id="dogErrorMessage" class="alert alert-danger d-none" role="alert">
-                <!-- Error message will be set by JS -->
-            </div>
-
-            <!-- Dog Photo Container -->
-            <div id="dogPhotoContainer" class="text-center" style="min-height: 300px;">
-                <!-- API result will be displayed here -->
+            <div id="freeGamesErrorMessage" class="alert alert-danger d-none" role="alert"></div>
+            <div class="row" id="freeGamesContainer">
+                <!-- FreeToGame API results will be displayed here -->
             </div>
         </section>
 
-        <!-- Astronomy Picture of the Day (APOD) Section -->
+        <!-- TheMealDB API Section -->
         <section class="mb-5">
-            <h2 class="mb-4">Günün Astronomi Fotoğrafı (NASA APOD)</h2>
-            <p>NASA'nın "Günün Astronomi Fotoğrafı" (APOD) servisinden rastgele bir görsel ve açıklamasını keşfedin.</p>
-
-            <!-- API Controls -->
-            <div class="mb-4">
-                <button id="getApodButton" class="btn btn-warning">Rastgele APOD Getir</button>
+            <h2 class="mb-4">Mutfak Deneyleri: Günün Tarifi</h2>
+            <p>Mutfakta yeni tatlar denemeyi seviyorum. İşte TheMealDB API'sinden rastgele bir tarif ilhamı:</p>
+            <div class="mb-3">
+                <button id="getRandomRecipeButton" class="btn btn-success">Rastgele Tarif Getir</button>
             </div>
-
-            <!-- APOD Loading Indicator -->
-            <div id="apodLoadingIndicator" class="text-center d-none">
-                <div class="spinner-border text-warning" role="status">
-                    <span class="visually-hidden">Yükleniyor...</span>
-                </div>
-                <p>Astronomi verisi getiriliyor, lütfen bekleyin...</p>
+            <div id="recipeLoadingIndicator" class="text-center d-none">
+                <div class="spinner-border text-success" role="status"><span class="visually-hidden">Yükleniyor...</span></div>
+                <p>Tarif getiriliyor...</p>
             </div>
-
-            <!-- APOD API Error Message -->
-            <div id="apodErrorMessage" class="alert alert-danger d-none" role="alert">
-                <!-- Error message will be set by JS -->
-            </div>
-
-            <!-- APOD Container -->
-            <div id="apodContainer" class="">
-                <!-- APOD result will be displayed here -->
+            <div id="recipeErrorMessage" class="alert alert-danger d-none" role="alert"></div>
+            <div id="recipeContainer" class="card">
+                <!-- TheMealDB API result will be displayed here -->
             </div>
         </section>
     </main>
@@ -121,222 +97,174 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JS for API Calls -->
     <script>
-        // DOM Elements - will be assigned once DOM is loaded
-        let dogPhotoContainer;
-        let dogLoadingIndicator;
-        let dogErrorMessage;
-        let getDogPhotoButton;
+        // DOM Elements
+        let freeGamesContainer, freeGamesLoadingIndicator, freeGamesErrorMessage, getFreeGamesButton;
+        let recipeContainer, recipeLoadingIndicator, recipeErrorMessage, getRandomRecipeButton;
 
-        // APOD DOM Elements
-        let apodContainer;
-        let apodLoadingIndicator;
-        let apodErrorMessage;
-        let getApodButton;
+        // API URLs
+        const FREETOGAME_API_URL = 'https://www.freetogame.com/api/games?platform=pc&sort-by=relevance'; // Example: PC games sorted by relevance
+        const MEALDB_RANDOM_API_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
-        // Dog API Constants
-        const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random';
-        // NASA APOD API - using DEMO_KEY for now, can fetch a few random images.
-        const APOD_API_URL = 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1'; // count=1 for a single random image
+        // --- FreeToGame API Functions ---
+        async function fetchFreeGames() {
+            showLoading('freeGames', true);
+            hideError('freeGames');
+            freeGamesContainer.innerHTML = '';
 
-        // Fetch random dog photo
-        async function fetchDogPhoto() {
-            // Ensure elements are initialized (they should be if DOMContentLoaded has fired and they exist)
-            if (!dogPhotoContainer || !dogLoadingIndicator || !dogErrorMessage) {
-                console.error("Dog API DOM elements not ready or not found.");
-                if (typeof document !== 'undefined' && document.getElementById('dogErrorMessage')) { 
-                    const errElem = document.getElementById('dogErrorMessage');
-                    if (errElem) {
-                         errElem.textContent = "Sayfa bileşenleri başlatılamadı.";
-                         errElem.classList.remove('d-none');
-                    }
-                }
-                return;
-            }
-
-            showDogLoading(true);
-            hideDogError();
-            dogPhotoContainer.innerHTML = ''; // Clear previous image
-            
             try {
-                const response = await fetch(DOG_API_URL);
-                if (!response.ok) {
-                    throw new Error(`API yanıt vermedi (${response.status})`);
-                }
+                // Add a cache-busting parameter to try and get different results if the API caches aggressively
+                const response = await fetch(`${FREETOGAME_API_URL}&timestamp=${new Date().getTime()}`);
+                if (!response.ok) throw new Error(`FreeToGame API yanıt vermedi (${response.status})`);
+                const data = await response.json();
                 
-                const data = await response.json();
-                if (data.status === "success" && data.message) {
-                    displayDogPhoto(data.message);
+                if (data && data.length > 0) {
+                    // Display a limited number of games, e.g., first 6
+                    displayFreeGames(data.slice(0, 6));
                 } else {
-                    throw new Error('Fotoğraf formatı hatalı veya API yanıtı beklenmedik.');
+                    throw new Error('Oyun bulunamadı veya API formatı beklenmedik.');
                 }
             } catch (error) {
-                console.error('Error fetching dog photo:', error);
-                showDogError(`Fotoğraf yüklenemedi: ${error.message}`);
+                console.error('Error fetching free games:', error);
+                showError('freeGames', `Oyunlar yüklenemedi: ${error.message}`);
             } finally {
-                showDogLoading(false);
+                showLoading('freeGames', false);
             }
         }
 
-        // Display dog photo
-        function displayDogPhoto(imageUrl) {
-            if (dogPhotoContainer) {
-                dogPhotoContainer.innerHTML = `<img src="${imageUrl}" class="img-fluid rounded shadow-sm" alt="Rastgele Köpek Fotoğrafı" style="max-height: 500px; max-width: 100%;">`;
-            }
+        function displayFreeGames(games) {
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'col-md-4 mb-4';
+                gameCard.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${game.thumbnail}" class="card-img-top" alt="${game.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${game.title}</h5>
+                            <p class="card-text"><small class="text-muted">${game.genre} | ${game.platform}</small></p>
+                            <p class="card-text">${game.short_description}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="${game.game_url}" class="btn btn-primary btn-sm" target="_blank">Oyuna Git</a>
+                        </div>
+                    </div>
+                `;
+                freeGamesContainer.appendChild(gameCard);
+            });
         }
 
-        // Helper functions for Dog API
-        function showDogLoading(show) {
-            if (dogLoadingIndicator) {
-                dogLoadingIndicator.classList.toggle('d-none', !show);
-            }
-        }
-
-        function hideDogError() {
-            if (dogErrorMessage) {
-                dogErrorMessage.classList.add('d-none');
-            }
-        }
-
-        function showDogError(message = 'Fotoğraf alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.') {
-            if (dogErrorMessage) {
-                dogErrorMessage.textContent = message;
-                dogErrorMessage.classList.remove('d-none');
-            }
-        }
-
-        // Fetch APOD data
-        async function fetchApod() {
-            if (!apodContainer || !apodLoadingIndicator || !apodErrorMessage) {
-                console.error("APOD API DOM elements not ready or not found.");
-                if (typeof document !== 'undefined' && document.getElementById('apodErrorMessage')) {
-                    const errElem = document.getElementById('apodErrorMessage');
-                    if (errElem) {
-                        errElem.textContent = "Sayfa bileşenleri başlatılamadı (APOD).";
-                        errElem.classList.remove('d-none');
-                    }
-                }
-                return;
-            }
-
-            showApodLoading(true);
-            hideApodError();
-            apodContainer.innerHTML = ''; // Clear previous content
+        // --- TheMealDB API Functions ---
+        async function fetchRandomRecipe() {
+            showLoading('recipe', true);
+            hideError('recipe');
+            recipeContainer.innerHTML = '';
 
             try {
-                const response = await fetch(APOD_API_URL);
-                if (!response.ok) {
-                    throw new Error(`APOD API yanıt vermedi (${response.status})`);
-                }
+                const response = await fetch(MEALDB_RANDOM_API_URL);
+                if (!response.ok) throw new Error(`TheMealDB API yanıt vermedi (${response.status})`);
                 const data = await response.json();
-                // APOD API with count=1 returns an array with one item
-                if (data && data.length > 0 && data[0].url) {
-                    displayApod(data[0]);
+
+                if (data.meals && data.meals.length > 0) {
+                    displayRandomRecipe(data.meals[0]);
                 } else {
-                    throw new Error('APOD verisi formatı hatalı veya beklenmedik.');
+                    throw new Error('Tarif bulunamadı veya API formatı beklenmedik.');
                 }
             } catch (error) {
-                console.error('Error fetching APOD data:', error);
-                showApodError(`APOD verisi yüklenemedi: ${error.message}`);
+                console.error('Error fetching recipe:', error);
+                showError('recipe', `Tarif yüklenemedi: ${error.message}`);
             } finally {
-                showApodLoading(false);
+                showLoading('recipe', false);
             }
         }
 
-        // Display APOD data
-        function displayApod(apodData) {
-            if (apodContainer) {
-                let mediaHtml = '';
-                if (apodData.media_type === 'image') {
-                    mediaHtml = `<img src="${apodData.url}" class="img-fluid rounded shadow-sm mb-3" alt="${apodData.title}" style="max-height: 600px; max-width: 100%;">`;
-                } else if (apodData.media_type === 'video') {
-                    // Basic video embedding, might need more robust handling for different video sources
-                    mediaHtml = `
-                        <div class="embed-responsive embed-responsive-16by9 mb-3">
-                            <iframe class="embed-responsive-item" src="${apodData.url}" allowfullscreen title="${apodData.title}"></iframe>
-                        </div>
-                        <p><small>Video APOD. <a href="${apodData.url}" target="_blank">Videoyu yeni sekmede aç</a></small></p>
-                    `;
+        function displayRandomRecipe(meal) {
+            let ingredientsList = '';
+            for (let i = 1; i <= 20; i++) {
+                if (meal[`strIngredient${i}`]) {
+                    ingredientsList += `<li>${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}</li>`;
                 } else {
-                    mediaHtml = `<p class="text-muted">Desteklenmeyen medya türü: ${apodData.media_type}</p>`;
+                    break; 
                 }
+            }
 
-                apodContainer.innerHTML = `
-                    <h3 class="mb-2">${apodData.title}</h3>
-                    <p class="text-muted">Tarih: ${apodData.date}</p>
-                    ${mediaHtml}
-                    <p style="text-align: justify;">${apodData.explanation}</p>
-                `;
+            recipeContainer.innerHTML = `
+                <img src="${meal.strMealThumb}" class="card-img-top" alt="${meal.strMeal}" style="max-height: 400px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="card-title">${meal.strMeal}</h3>
+                    <p class="card-text"><small class="text-muted">${meal.strCategory} | ${meal.strArea}</small></p>
+                    <h5>Malzemeler:</h5>
+                    <ul>${ingredientsList}</ul>
+                    <h5>Hazırlanışı:</h5>
+                    <p style="white-space: pre-wrap;">${meal.strInstructions}</p>
+                    ${meal.strYoutube ? `<a href="${meal.strYoutube}" class="btn btn-danger btn-sm mt-2" target="_blank">Videoyu İzle</a>` : ''}
+                    ${meal.strSource ? `<a href="${meal.strSource}" class="btn btn-info btn-sm mt-2 ms-2" target="_blank">Kaynak</a>` : ''}
+                </div>
+            `;
+        }
+
+        // --- Helper Functions (Generic) ---
+        function showLoading(type, show) {
+            const indicator = document.getElementById(`${type}LoadingIndicator`);
+            if (indicator) indicator.classList.toggle('d-none', !show);
+        }
+
+        function hideError(type) {
+            const errorMsgElem = document.getElementById(`${type}ErrorMessage`);
+            if (errorMsgElem) {
+                 errorMsgElem.classList.add('d-none');
+                 errorMsgElem.textContent = '';
             }
         }
 
-        // Helper functions for APOD API
-        function showApodLoading(show) {
-            if (apodLoadingIndicator) {
-                apodLoadingIndicator.classList.toggle('d-none', !show);
-            }
-        }
-
-        function hideApodError() {
-            if (apodErrorMessage) {
-                apodErrorMessage.classList.add('d-none');
-            }
-        }
-
-        function showApodError(message = 'Astronomi verisi alınırken bir hata oluştu.') {
-            if (apodErrorMessage) {
-                apodErrorMessage.textContent = message;
-                apodErrorMessage.classList.remove('d-none');
+        function showError(type, message) {
+            const errorMsgElem = document.getElementById(`${type}ErrorMessage`);
+            if (errorMsgElem) {
+                errorMsgElem.textContent = message;
+                errorMsgElem.classList.remove('d-none');
             }
         }
         
+        // --- Initialize ---
         if (typeof document !== 'undefined') {
             document.addEventListener('DOMContentLoaded', () => {
-                // Initialize DOM elements here
-                dogPhotoContainer = document.getElementById('dogPhotoContainer');
-                dogLoadingIndicator = document.getElementById('dogLoadingIndicator');
-                dogErrorMessage = document.getElementById('dogErrorMessage');
-                getDogPhotoButton = document.getElementById('getDogPhotoButton');
+                // FreeToGame elements
+                freeGamesContainer = document.getElementById('freeGamesContainer');
+                freeGamesLoadingIndicator = document.getElementById('freeGamesLoadingIndicator');
+                freeGamesErrorMessage = document.getElementById('freeGamesErrorMessage');
+                getFreeGamesButton = document.getElementById('getFreeGamesButton');
 
-                apodContainer = document.getElementById('apodContainer');
-                apodLoadingIndicator = document.getElementById('apodLoadingIndicator');
-                apodErrorMessage = document.getElementById('apodErrorMessage');
-                getApodButton = document.getElementById('getApodButton');
+                // TheMealDB elements
+                recipeContainer = document.getElementById('recipeContainer');
+                recipeLoadingIndicator = document.getElementById('recipeLoadingIndicator');
+                recipeErrorMessage = document.getElementById('recipeErrorMessage');
+                getRandomRecipeButton = document.getElementById('getRandomRecipeButton');
 
-                if (getDogPhotoButton) {
-                    getDogPhotoButton.addEventListener('click', fetchDogPhoto);
+                // Event Listeners
+                if (getFreeGamesButton) {
+                    getFreeGamesButton.addEventListener('click', fetchFreeGames);
                 } else {
-                    console.error("Get Dog Photo button not found on DOMContentLoaded. Check ID 'getDogPhotoButton'.");
+                    console.error("Button 'getFreeGamesButton' not found.");
+                    showError('freeGames', "Sayfa öğesi (oyun butonu) bulunamadı.");
                 }
 
-                if (getApodButton) {
-                    getApodButton.addEventListener('click', fetchApod);
+                if (getRandomRecipeButton) {
+                    getRandomRecipeButton.addEventListener('click', fetchRandomRecipe);
                 } else {
-                    console.error("Get APOD button not found on DOMContentLoaded. Check ID 'getApodButton'.");
-                }
-                
-                // Initial fetches
-                if (dogPhotoContainer && dogLoadingIndicator && dogErrorMessage && getDogPhotoButton) {
-                    fetchDogPhoto(); 
-                } else {
-                    console.error("One or more Dog API DOM elements were not found. Initial dog fetch cancelled.");
-                    const errElem = typeof document !== 'undefined' ? document.getElementById('dogErrorMessage') : null; 
-                    if(errElem) {
-                        errElem.textContent = "Sayfa öğeleri (Köpek API) yüklenirken bir sorun oluştu.";
-                        errElem.classList.remove('d-none');
-                    }
+                    console.error("Button 'getRandomRecipeButton' not found.");
+                    showError('recipe', "Sayfa öğesi (tarif butonu) bulunamadı.");
                 }
 
-                if (apodContainer && apodLoadingIndicator && apodErrorMessage && getApodButton) {
-                    fetchApod(); // Initially load an APOD image/video
+                // Initial Fetches
+                if (freeGamesContainer && getFreeGamesButton) {
+                    fetchFreeGames();
                 } else {
-                    console.error("One or more APOD API DOM elements were not found. Initial APOD fetch cancelled.");
-                    const errElem = typeof document !== 'undefined' ? document.getElementById('apodErrorMessage') : null; 
-                    if(errElem) {
-                        errElem.textContent = "Sayfa öğeleri (APOD API) yüklenirken bir sorun oluştu.";
-                        errElem.classList.remove('d-none');
-                    }
+                     if (!freeGamesContainer) console.error("Container 'freeGamesContainer' not found.");
+                }
+
+                if (recipeContainer && getRandomRecipeButton) {
+                    fetchRandomRecipe();
+                } else {
+                    if (!recipeContainer) console.error("Container 'recipeContainer' not found.");
                 }
             });
         }
