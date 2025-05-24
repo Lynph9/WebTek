@@ -49,40 +49,37 @@
     <main class="container my-5">
         <header class="text-center mb-5">
             <h1>İlgi Alanlarım</h1>
-            <p class="lead">Boş zamanlarımda keyif aldığım ve yeni şeyler keşfettiğim bazı ilgi alanlarım.</p>
+            <p class="lead">Sinema dünyasından öneriler ve basketbol sahalarından son skorlar.</p>
         </header>
 
-        <!-- FreeToGame API Section -->
+        <!-- OMDb API Section (Film Suggestion) -->
         <section class="mb-5">
-            <h2 class="mb-4">Gelecek Oyun Maceralarım: Ücretsiz Keşifler</h2>
-            <p>Her zaman yeni ve heyecan verici ücretsiz oyunlar arayışındayım. İşte FreeToGame API'sinden bazı güncel öneriler:</p>
+            <h2 class="mb-4">Film Önerisi</h2>
+            <p>OMDb API'sinden rastgele seçilmiş bir film önerisi:</p>
             <div class="mb-3">
-                <button id="getFreeGamesButton" class="btn btn-primary">Yeni Oyun Önerileri Getir</button>
+                <button id="refreshFilmButton" class="btn btn-primary">🎬 Yeni Film Önerisi Al</button>
             </div>
-            <div id="freeGamesLoadingIndicator" class="text-center d-none">
+            <div id="filmLoadingIndicator" class="text-center d-none">
                 <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Yükleniyor...</span></div>
-                <p>Oyun verileri getiriliyor...</p>
+                <p>Film bilgileri getiriliyor...</p>
             </div>
-            <div id="freeGamesErrorMessage" class="alert alert-danger d-none" role="alert"></div>
-            <div class="row" id="freeGamesContainer">
-                <!-- FreeToGame API results will be displayed here -->
+            <div id="filmErrorMessage" class="alert alert-danger d-none" role="alert"></div>
+            <div id="filmContainer" class="card">
+                <!-- OMDb API result will be displayed here -->
             </div>
         </section>
 
-        <!-- TheMealDB API Section -->
+        <!-- TheSportsDB API Section (NBA with YouTube Links) -->
         <section class="mb-5">
-            <h2 class="mb-4">Mutfak Deneyleri: Günün Tarifi</h2>
-            <p>Mutfakta yeni tatlar denemeyi seviyorum. İşte TheMealDB API'sinden rastgele bir tarif ilhamı:</p>
-            <div class="mb-3">
-                <button id="getRandomRecipeButton" class="btn btn-success">Rastgele Tarif Getir</button>
-            </div>
-            <div id="recipeLoadingIndicator" class="text-center d-none">
+            <h2 class="mb-4">Parkeden Son Dakika: NBA Video Özeti</h2>
+            <p>TheSportsDB API'sinden alınan NBA maçları ve YouTube video özetleri:</p>
+            <div id="nbaLoadingIndicator" class="text-center d-none">
                 <div class="spinner-border text-success" role="status"><span class="visually-hidden">Yükleniyor...</span></div>
-                <p>Tarif getiriliyor...</p>
+                <p>NBA video verileri getiriliyor...</p>
             </div>
-            <div id="recipeErrorMessage" class="alert alert-danger d-none" role="alert"></div>
-            <div id="recipeContainer" class="card">
-                <!-- TheMealDB API result will be displayed here -->
+            <div id="nbaErrorMessage" class="alert alert-danger d-none" role="alert"></div>
+            <div class="row" id="nbaContainer">
+                <!-- TheSportsDB API result will be displayed here -->
             </div>
         </section>
     </main>
@@ -99,107 +96,152 @@
     
     <script>
         // DOM Elements
-        let freeGamesContainer, freeGamesLoadingIndicator, freeGamesErrorMessage, getFreeGamesButton;
-        let recipeContainer, recipeLoadingIndicator, recipeErrorMessage, getRandomRecipeButton;
+        let filmContainer, filmLoadingIndicator, filmErrorMessage;
+        let nbaContainer, nbaLoadingIndicator, nbaErrorMessage;
 
-        // API URLs
-        const FREETOGAME_API_URL = 'https://www.freetogame.com/api/games?platform=pc&sort-by=relevance'; // Example: PC games sorted by relevance
-        const MEALDB_RANDOM_API_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+        // API Configuration
+        const OMDb_API_KEY = 'thewdb'; // Replace with your own OMDb API key for better reliability
+        const PREDEFINED_FILM_IDS = [
+            'tt0111161', // The Shawshank Redemption
+            'tt0068646', // The Godfather
+            'tt0110912', // Pulp Fiction
+            'tt0468569', // The Dark Knight
+            'tt0109830'  // Forrest Gump
+        ];
 
-        // --- FreeToGame API Functions ---
-        async function fetchFreeGames() {
-            showLoading('freeGames', true);
-            hideError('freeGames');
-            freeGamesContainer.innerHTML = '';
+        // --- OMDb API Functions (Film Suggestion) ---
+        async function fetchFilmSuggestion() {
+            showLoading('film', true);
+            hideError('film');
+            if (filmContainer) filmContainer.innerHTML = '';
 
             try {
-                // Add a cache-busting parameter to try and get different results if the API caches aggressively
-                const response = await fetch(`${FREETOGAME_API_URL}&timestamp=${new Date().getTime()}`);
-                if (!response.ok) throw new Error(`FreeToGame API yanıt vermedi (${response.status})`);
-                const data = await response.json();
+                const randomImdbId = PREDEFINED_FILM_IDS[Math.floor(Math.random() * PREDEFINED_FILM_IDS.length)];
+                const response = await fetch(`https://www.omdbapi.com/?i=${randomImdbId}&apikey=${OMDb_API_KEY}&plot=short`);
                 
-                if (data && data.length > 0) {
-                    // Display a limited number of games, e.g., first 6
-                    displayFreeGames(data.slice(0, 6));
+                if (!response.ok) {
+                    throw new Error(`OMDb API yanıt vermedi (${response.status})`);
+                }
+                const data = await response.json();
+
+                if (data.Response === "True") {
+                    displayFilmSuggestion(data);
                 } else {
-                    throw new Error('Oyun bulunamadı veya API formatı beklenmedik.');
+                    throw new Error(data.Error || 'Film bilgisi OMDb\'den alınamadı.');
                 }
             } catch (error) {
-                console.error('Error fetching free games:', error);
-                showError('freeGames', `Oyunlar yüklenemedi: ${error.message}`);
+                console.error('Error fetching film suggestion:', error);
+                showError('film', `Film önerisi yüklenemedi: ${error.message}. API Key (OMDb_API_KEY) geçerli olmayabilir veya günlük limit dolmuş olabilir.`);
             } finally {
-                showLoading('freeGames', false);
+                showLoading('film', false);
             }
         }
 
-        function displayFreeGames(games) {
-            games.forEach(game => {
-                const gameCard = document.createElement('div');
-                gameCard.className = 'col-md-4 mb-4';
-                gameCard.innerHTML = `
-                    <div class="card h-100">
-                        <img src="${game.thumbnail}" class="card-img-top" alt="${game.title}">
+        function displayFilmSuggestion(film) {
+            if (!filmContainer) return;
+            filmContainer.innerHTML = `
+                <div class="row g-0">
+                    <div class="col-md-4 text-center">
+                        ${film.Poster && film.Poster !== "N/A" ? `<img src="${film.Poster}" class="img-fluid rounded-start p-2" alt="${film.Title} Poster" style="max-height: 400px; width: auto;">` : '<div class="p-2 text-muted">Poster Yok</div>'}
+                    </div>
+                    <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">${game.title}</h5>
-                            <p class="card-text"><small class="text-muted">${game.genre} | ${game.platform}</small></p>
-                            <p class="card-text">${game.short_description}</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="${game.game_url}" class="btn btn-primary btn-sm" target="_blank">Oyuna Git</a>
+                            <h5 class="card-title">${film.Title || 'Başlık Yok'}</h5>
+                            <p class="card-text"><small class="text-muted">Yıl: ${film.Year || 'Bilinmiyor'} | Tür: ${film.Genre || 'Bilinmiyor'} | Süre: ${film.Runtime || 'Bilinmiyor'}</small></p>
+                            <p class="card-text">${film.Plot || 'Açıklama mevcut değil.'}</p>
+                            ${film.imdbRating && film.imdbRating !== "N/A" ? `<p class="card-text"><strong>IMDb Puanı:</strong> ${film.imdbRating}/10</p>` : ''}
+                            ${film.Director && film.Director !== "N/A" ? `<p class="card-text"><small class="text-muted"><strong>Yönetmen:</strong> ${film.Director}</small></p>` : ''}
+                            ${film.Writer && film.Writer !== "N/A" ? `<p class="card-text"><small class="text-muted"><strong>Yazar:</strong> ${film.Writer}</small></p>` : ''}
+                            ${film.Actors && film.Actors !== "N/A" ? `<p class="card-text"><small class="text-muted"><strong>Oyuncular:</strong> ${film.Actors}</small></p>` : ''}
+                            ${film.imdbID ? `<a href="https://www.imdb.com/title/${film.imdbID}/" class="btn btn-outline-primary btn-sm mt-2" target="_blank">IMDb'de Görüntüle</a>` : ''}
                         </div>
                     </div>
-                `;
-                freeGamesContainer.appendChild(gameCard);
-            });
-        }
-
-        // --- TheMealDB API Functions ---
-        async function fetchRandomRecipe() {
-            showLoading('recipe', true);
-            hideError('recipe');
-            recipeContainer.innerHTML = '';
-
-            try {
-                const response = await fetch(MEALDB_RANDOM_API_URL);
-                if (!response.ok) throw new Error(`TheMealDB API yanıt vermedi (${response.status})`);
-                const data = await response.json();
-
-                if (data.meals && data.meals.length > 0) {
-                    displayRandomRecipe(data.meals[0]);
-                } else {
-                    throw new Error('Tarif bulunamadı veya API formatı beklenmedik.');
-                }
-            } catch (error) {
-                console.error('Error fetching recipe:', error);
-                showError('recipe', `Tarif yüklenemedi: ${error.message}`);
-            } finally {
-                showLoading('recipe', false);
-            }
-        }
-
-        function displayRandomRecipe(meal) {
-            let ingredientsList = '';
-            for (let i = 1; i <= 20; i++) {
-                if (meal[`strIngredient${i}`]) {
-                    ingredientsList += `<li>${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}</li>`;
-                } else {
-                    break; 
-                }
-            }
-
-            recipeContainer.innerHTML = `
-                <img src="${meal.strMealThumb}" class="card-img-top" alt="${meal.strMeal}" style="max-height: 400px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title">${meal.strMeal}</h3>
-                    <p class="card-text"><small class="text-muted">${meal.strCategory} | ${meal.strArea}</small></p>
-                    <h5>Malzemeler:</h5>
-                    <ul>${ingredientsList}</ul>
-                    <h5>Hazırlanışı:</h5>
-                    <p style="white-space: pre-wrap;">${meal.strInstructions}</p>
-                    ${meal.strYoutube ? `<a href="${meal.strYoutube}" class="btn btn-danger btn-sm mt-2" target="_blank">Videoyu İzle</a>` : ''}
-                    ${meal.strSource ? `<a href="${meal.strSource}" class="btn btn-info btn-sm mt-2 ms-2" target="_blank">Kaynak</a>` : ''}
                 </div>
             `;
+        }
+
+        // --- TheSportsDB API Functions (NBA Scores) ---
+        async function fetchNBAScores() {
+            showLoading('nba', true);
+            hideError('nba');
+            if (nbaContainer) nbaContainer.innerHTML = '';
+
+            try {
+                // Get recent NBA events from TheSportsDB (LA Lakers)
+                const response = await fetch('https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=134860');
+                if (!response.ok) {
+                    throw new Error(`TheSportsDB API yanıt vermedi (${response.status})`);
+                }
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    // Take first 6 recent games
+                    const recentGames = data.results.slice(0, 6);
+                    displayNBAScores(recentGames);
+                } else {
+                    throw new Error('NBA maç bilgileri TheSportsDB\'den alınamadı.');
+                }
+            } catch (error) {
+                console.error('Error fetching NBA scores:', error);
+                showError('nba', `NBA video içerikleri yüklenemedi: ${error.message}`);
+            } finally {
+                showLoading('nba', false);
+            }
+        }
+
+        function displayNBAScores(games) {
+            if (!nbaContainer) return;
+            nbaContainer.innerHTML = ''; // Clear previous games
+            
+            if (games.length === 0) {
+                nbaContainer.innerHTML = '<p class="text-muted col-12">Video içerikli NBA maçı bulunamadı.</p>';
+                return;
+            }
+
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'col-md-6 col-lg-4 mb-4';
+                
+                const homeScore = game.intHomeScore || '0';
+                const awayScore = game.intAwayScore || '0';
+                let gameStatus = 'Tamamlandı';
+                if (homeScore === '0' && awayScore === '0') {
+                    gameStatus = 'Yakında';
+                } else {
+                    gameStatus = `${homeScore} - ${awayScore}`;
+                }
+
+                // Clean up video URL
+                let videoUrl = game.strVideo;
+                if (videoUrl && !videoUrl.startsWith('http://') && !videoUrl.startsWith('https://')) {
+                    videoUrl = 'https://' + videoUrl;
+                }
+
+                gameCard.innerHTML = `
+                    <div class="card h-100 shadow-sm">
+                        ${game.strThumb ? `<img src="${game.strThumb}/preview" class="card-img-top" alt="${game.strEventAlternate || game.strEvent}" style="height: 150px; object-fit: cover;">` : ''}
+                        <div class="card-body">
+                            <h6 class="card-title">${game.strEventAlternate || game.strEvent || 'NBA Maçı'}</h6>
+                            <p class="card-text"><small class="text-muted">Tarih: ${game.dateEventLocal || 'Bilinmiyor'}</small></p>
+                            <p class="card-text"><small class="text-muted">Saat: ${game.strTimeLocal ? game.strTimeLocal.substring(0,5) : 'Bilinmiyor'}</small></p>
+                            <p class="card-text fw-bold">Skor: ${gameStatus}</p>
+                            <p class="card-text"><small class="text-muted">Lig: ${game.strLeague || 'NBA'}</small></p>
+                        </div>
+                        ${videoUrl ? `
+                            <div class="card-footer">
+                                <a href="${videoUrl}" class="btn btn-danger btn-sm" target="_blank">
+                                    🎥 Video Özeti İzle
+                                </a>
+                            </div>
+                        ` : `
+                            <div class="card-footer">
+                                <small class="text-muted">Video özeti mevcut değil</small>
+                            </div>
+                        `}
+                    </div>
+                `;
+                nbaContainer.appendChild(gameCard);
+            });
         }
 
         // --- Helper Functions (Generic) ---
@@ -227,44 +269,33 @@
         // --- Initialize ---
         if (typeof document !== 'undefined') {
             document.addEventListener('DOMContentLoaded', () => {
-                // FreeToGame elements
-                freeGamesContainer = document.getElementById('freeGamesContainer');
-                freeGamesLoadingIndicator = document.getElementById('freeGamesLoadingIndicator');
-                freeGamesErrorMessage = document.getElementById('freeGamesErrorMessage');
-                getFreeGamesButton = document.getElementById('getFreeGamesButton');
+                // Film elements
+                filmContainer = document.getElementById('filmContainer');
+                filmLoadingIndicator = document.getElementById('filmLoadingIndicator');
+                filmErrorMessage = document.getElementById('filmErrorMessage');
 
-                // TheMealDB elements
-                recipeContainer = document.getElementById('recipeContainer');
-                recipeLoadingIndicator = document.getElementById('recipeLoadingIndicator');
-                recipeErrorMessage = document.getElementById('recipeErrorMessage');
-                getRandomRecipeButton = document.getElementById('getRandomRecipeButton');
-
-                // Event Listeners
-                if (getFreeGamesButton) {
-                    getFreeGamesButton.addEventListener('click', fetchFreeGames);
-                } else {
-                    console.error("Button 'getFreeGamesButton' not found.");
-                    showError('freeGames', "Sayfa öğesi (oyun butonu) bulunamadı.");
-                }
-
-                if (getRandomRecipeButton) {
-                    getRandomRecipeButton.addEventListener('click', fetchRandomRecipe);
-                } else {
-                    console.error("Button 'getRandomRecipeButton' not found.");
-                    showError('recipe', "Sayfa öğesi (tarif butonu) bulunamadı.");
-                }
+                // NBA elements
+                nbaContainer = document.getElementById('nbaContainer');
+                nbaLoadingIndicator = document.getElementById('nbaLoadingIndicator');
+                nbaErrorMessage = document.getElementById('nbaErrorMessage');
 
                 // Initial Fetches
-                if (freeGamesContainer && getFreeGamesButton) {
-                    fetchFreeGames();
+                if (filmContainer) {
+                    fetchFilmSuggestion();
                 } else {
-                     if (!freeGamesContainer) console.error("Container 'freeGamesContainer' not found.");
+                    console.error("Container 'filmContainer' not found.");
                 }
 
-                if (recipeContainer && getRandomRecipeButton) {
-                    fetchRandomRecipe();
+                if (nbaContainer) {
+                    fetchNBAScores();
                 } else {
-                    if (!recipeContainer) console.error("Container 'recipeContainer' not found.");
+                    console.error("Container 'nbaContainer' not found.");
+                }
+
+                // Event Listeners
+                const refreshFilmButton = document.getElementById('refreshFilmButton');
+                if (refreshFilmButton) {
+                    refreshFilmButton.addEventListener('click', fetchFilmSuggestion);
                 }
             });
         }

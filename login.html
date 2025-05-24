@@ -64,12 +64,15 @@
                         <div id="invalidEmailError" class="alert alert-warning d-none">
                             Lütfen geçerli bir e-posta adresi girin!
                         </div>
+                        <div id="logoutSuccess" class="alert alert-success d-none">
+                            <i class="fas fa-check-circle me-2"></i>Başarıyla çıkış yapıldı!
+                        </div>
                         
                         <!-- Login Form -->
-                        <form id="loginForm" action="login.php" method="post" novalidate>
+                        <form id="loginForm" action="login_infinity.php" method="post" novalidate>
                             <div class="mb-3">
                                 <label for="email" class="form-label">E-posta Adresi</label>
-                                <input type="email" class="form-control" id="email" name="email" required placeholder="örn: b1812100001@sakarya.edu.tr">
+                                <input type="email" class="form-control" id="email" name="email" required placeholder="örn: b123456789@sakarya.edu.tr">
                                 <div class="invalid-feedback">
                                     Lütfen geçerli bir e-posta adresi girin.
                                 </div>
@@ -88,7 +91,7 @@
                     </div>
                     <div class="card-footer bg-light">
                         <small class="text-muted">
-                            Not: Giriş yapmak için üniversite e-posta adresinizi (@sakarya.edu.tr) ve öğrenci numaranızı (b ile başlayan) kullanın.
+                            Not: Giriş yapmak için üniversite e-posta adresinizi (@sakarya.edu.tr) ve öğrenci numaranızı kullanın.
                         </small>
                     </div>
                 </div>
@@ -111,6 +114,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const error = urlParams.get('error');
+            const message = urlParams.get('message');
             
             if (error === 'login') {
                 document.getElementById('loginError').classList.remove('d-none');
@@ -118,6 +122,10 @@
                 document.getElementById('emptyFieldsError').classList.remove('d-none');
             } else if (error === 'email') {
                 document.getElementById('invalidEmailError').classList.remove('d-none');
+            }
+            
+            if (message === 'logout') {
+                document.getElementById('logoutSuccess').classList.remove('d-none');
             }
             
             // Client-side form validation (complementary to PHP validation)
