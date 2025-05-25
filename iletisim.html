@@ -51,7 +51,7 @@
     <main class="container my-5">
         <header class="text-center mb-5">
             <h1>İletişim Formu</h1>
-            <p class="lead">Benimle iletişime geçmek için aşağıdaki kapsamlı formu doldurabilirsiniz.</p>
+            <p class="lead">Benimle iletişime geçmek için aşağıdaki formu doldurabilirsiniz.</p>
         </header>
 
         <div class="row">
@@ -101,298 +101,152 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Kapsamlı İletişim Formu</h2>
+                        <h2 class="card-title">İletişim Formu</h2>
                         <hr>
                         
                         <!-- Validation Message Area -->
                         <div id="validationFeedback" class="alert d-none"></div>
                         
-                        <!-- Contact Form with comprehensive form elements -->
-                        <form id="contactForm" action="form-process.php" method="post" novalidate>
-                            <!-- Basic Information Section -->
+                        <!-- Contact Form - All form elements included -->
+                        <form id="contactForm" novalidate>
+                            <!-- Text Inputs -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="firstName" class="form-label">Ad*</label>
-                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
-                                    <div class="invalid-feedback">Lütfen adınızı girin.</div>
+                                    <input type="text" class="form-control" id="firstName" name="firstName">
+                                    <div class="invalid-feedback">Ad alanı zorunludur.</div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastName" class="form-label">Soyad*</label>
-                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
-                                    <div class="invalid-feedback">Lütfen soyadınızı girin.</div>
+                                    <input type="text" class="form-control" id="lastName" name="lastName">
+                                    <div class="invalid-feedback">Soyad alanı zorunludur.</div>
                                 </div>
                             </div>
                             
+                            <!-- Email and Phone -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="email" class="form-label">E-posta Adresiniz*</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                    <div class="invalid-feedback">Lütfen geçerli bir e-posta adresi girin.</div>
+                                    <label for="email" class="form-label">E-posta*</label>
+                                    <input type="email" class="form-control" id="email" name="email">
+                                    <div class="invalid-feedback">Geçerli bir e-posta adresi girin.</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="phone" class="form-label">Telefon Numaranız*</label>
-                                    <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9+\-\s\(\)]+" placeholder="örn: 0555 123 45 67" required>
-                                    <div class="invalid-feedback">Lütfen geçerli bir telefon numarası girin (sadece rakamlar, +, -, boşluk, parantez).</div>
+                                    <label for="phone" class="form-label">Telefon*</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="05xxxxxxxxx">
+                                    <div class="invalid-feedback">Geçerli bir telefon numarası girin (sadece rakam).</div>
                                 </div>
                             </div>
 
+                            <!-- Date and Number -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="birthDate" class="form-label">Doğum Tarihi</label>
-                                    <input type="date" class="form-control" id="birthDate" name="birthDate" max="2010-01-01">
-                                    <div class="invalid-feedback">Lütfen geçerli bir doğum tarihi girin.</div>
+                                    <input type="date" class="form-control" id="birthDate" name="birthDate">
+                                    <div class="invalid-feedback">Geçerli bir tarih seçin.</div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="age" class="form-label">Yaş</label>
-                                    <input type="number" class="form-control" id="age" name="age" min="13" max="100">
-                                    <div class="invalid-feedback">Yaş 13-100 arasında olmalıdır.</div>
+                                    <input type="number" class="form-control" id="age" name="age" min="1" max="100">
+                                    <div class="invalid-feedback">1-100 arası bir yaş girin.</div>
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Adres</label>
-                                <textarea class="form-control" id="address" name="address" rows="2"></textarea>
-                                <div class="invalid-feedback">Lütfen adresinizi girin.</div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="city" class="form-label">Şehir</label>
-                                    <select class="form-select" id="city" name="city">
-                                        <option value="">Şehir seçiniz</option>
-                                        <option value="Adana">Adana</option>
-                                        <option value="Ankara">Ankara</option>
-                                        <option value="Antalya">Antalya</option>
-                                        <option value="Bursa">Bursa</option>
-                                        <option value="Eskişehir">Eskişehir</option>
-                                        <option value="Gaziantep">Gaziantep</option>
-                                        <option value="İstanbul">İstanbul</option>
-                                        <option value="İzmir">İzmir</option>
-                                        <option value="Kayseri">Kayseri</option>
-                                        <option value="Konya">Konya</option>
-                                        <option value="Sakarya">Sakarya</option>
-                                        <option value="Samsun">Samsun</option>
-                                        <option value="Trabzon">Trabzon</option>
-                                        <option value="Diğer">Diğer</option>
-                                    </select>
-                                    <div class="invalid-feedback">Lütfen şehrinizi seçin.</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="country" class="form-label">Ülke*</label>
-                                    <select class="form-select" id="country" name="country" required>
-                                        <option value="">Ülke seçiniz</option>
-                                        <option value="Turkey">Türkiye</option>
-                                        <option value="Germany">Almanya</option>
-                                        <option value="USA">Amerika Birleşik Devletleri</option>
-                                        <option value="UK">Birleşik Krallık</option>
-                                        <option value="France">Fransa</option>
-                                        <option value="Italy">İtalya</option>
-                                        <option value="Spain">İspanya</option>
-                                        <option value="Netherlands">Hollanda</option>
-                                        <option value="Other">Diğer</option>
-                                    </select>
-                                    <div class="invalid-feedback">Lütfen ülkenizi seçin.</div>
-                                </div>
-                            </div>
-
-                            <!-- Contact Information -->
-                            <div class="mb-3">
-                                <label for="website" class="form-label">Web Siteniz</label>
-                                <input type="url" class="form-control" id="website" name="website">
-                                <div class="invalid-feedback">Lütfen geçerli bir URL girin (http:// veya https:// ile başlamalı).</div>
-                            </div>
-
-                            <!-- Message Section -->
+                            <!-- Select Dropdown -->
                             <div class="mb-3">
                                 <label for="subject" class="form-label">Konu*</label>
-                                <select class="form-select" id="subject" name="subject" required>
+                                <select class="form-select" id="subject" name="subject">
                                     <option value="">Seçiniz</option>
                                     <option value="Genel Bilgi">Genel Bilgi</option>
                                     <option value="Proje İşbirliği">Proje İşbirliği</option>
                                     <option value="İş Teklifi">İş Teklifi</option>
-                                    <option value="Oyun Geliştirme">Oyun Geliştirme</option>
-                                    <option value="Web Geliştirme">Web Geliştirme</option>
-                                    <option value="Eğitim/Öğretim">Eğitim/Öğretim</option>
                                     <option value="Diğer">Diğer</option>
                                 </select>
                                 <div class="invalid-feedback">Lütfen bir konu seçin.</div>
                             </div>
 
+                            <!-- Radio Buttons -->
                             <div class="mb-3">
-                                <label for="priority" class="form-label">Öncelik Düzeyi*</label>
+                                <label class="form-label">Öncelik Düzeyi*</label>
                                 <div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="priority" id="lowPriority" value="Düşük" required>
+                                        <input class="form-check-input" type="radio" name="priority" id="lowPriority" value="Düşük">
                                         <label class="form-check-label" for="lowPriority">Düşük</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="priority" id="mediumPriority" value="Orta" required>
+                                        <input class="form-check-input" type="radio" name="priority" id="mediumPriority" value="Orta">
                                         <label class="form-check-label" for="mediumPriority">Orta</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="priority" id="highPriority" value="Yüksek" required>
+                                        <input class="form-check-input" type="radio" name="priority" id="highPriority" value="Yüksek">
                                         <label class="form-check-label" for="highPriority">Yüksek</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="priority" id="urgentPriority" value="Acil" required>
-                                        <label class="form-check-label" for="urgentPriority">Acil</label>
                                     </div>
                                 </div>
                                 <div class="invalid-feedback">Lütfen öncelik düzeyi seçin.</div>
                             </div>
-                            
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Mesajınız*</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required minlength="10" maxlength="1000"></textarea>
-                                <div class="form-text">Mesajınız en az 10, en fazla 1000 karakter olmalıdır.</div>
-                                <div class="invalid-feedback">Lütfen 10-1000 karakter arasında bir mesaj girin.</div>
-                            </div>
 
-                            <!-- Personal Information -->
+                            <!-- Checkboxes -->
                             <div class="mb-3">
-                                <label class="form-label">Cinsiyet</label>
-                                <div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="male" value="Erkek">
-                                        <label class="form-check-label" for="male">Erkek</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="female" value="Kadın">
-                                        <label class="form-check-label" for="female">Kadın</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="other" value="Diğer">
-                                        <label class="form-check-label" for="other">Diğer</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="noAnswer" value="Belirtmek istemiyorum">
-                                        <label class="form-check-label" for="noAnswer">Belirtmek istemiyorum</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">İlgilendiğiniz Konular (Birden fazla seçebilirsiniz)</label>
+                                <label class="form-label">İlgi Alanları</label>
                                 <div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="interests[]" id="webDev" value="Web Geliştirme">
                                         <label class="form-check-label" for="webDev">Web Geliştirme</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="interests[]" id="mobile" value="Mobil Uygulama">
-                                        <label class="form-check-label" for="mobile">Mobil Uygulama</label>
-                                    </div>
-                                    <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="interests[]" id="gameDev" value="Oyun Geliştirme">
                                         <label class="form-check-label" for="gameDev">Oyun Geliştirme</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="interests[]" id="design" value="UI/UX Tasarım">
-                                        <label class="form-check-label" for="design">UI/UX Tasarım</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="interests[]" id="ai" value="Yapay Zeka">
-                                        <label class="form-check-label" for="ai">Yapay Zeka</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="interests[]" id="blockchain" value="Blockchain">
-                                        <label class="form-check-label" for="blockchain">Blockchain</label>
+                                        <input class="form-check-input" type="checkbox" name="interests[]" id="design" value="Tasarım">
+                                        <label class="form-check-label" for="design">Tasarım</label>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Range Slider -->
                             <div class="mb-3">
-                                <label for="experience" class="form-label">Deneyim Düzeyi</label>
-                                <select class="form-select" id="experience" name="experience">
-                                    <option value="">Seçiniz</option>
-                                    <option value="Başlangıç">Başlangıç (0-1 yıl)</option>
-                                    <option value="Orta">Orta (1-3 yıl)</option>
-                                    <option value="İleri">İleri (3-5 yıl)</option>
-                                    <option value="Uzman">Uzman (5+ yıl)</option>
-                                </select>
-                                <div class="invalid-feedback">Lütfen deneyim düzeyinizi seçin.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="budget" class="form-label">Proje Bütçesi (Opsiyonel)</label>
-                                <input type="range" class="form-range" id="budget" name="budget" min="0" max="50000" step="1000" value="10000">
+                                <label for="experience" class="form-label">Deneyim Seviyesi (1-10)</label>
+                                <input type="range" class="form-range" id="experience" name="experience" min="1" max="10" value="5">
                                 <div class="d-flex justify-content-between">
-                                    <small>0₺</small>
-                                    <small id="budgetDisplay">10,000₺</small>
-                                    <small>50,000₺+</small>
-                                </div>
-                                <div class="invalid-feedback">Lütfen geçerli bir bütçe aralığı seçin.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="attachment" class="form-label">Dosya Ekleyin (CV, Portfolio vb.)</label>
-                                <input type="file" class="form-control" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.txt,.jpg,.png">
-                                <div class="form-text">Sadece PDF, DOC, DOCX, TXT, JPG, PNG dosyaları kabul edilir. Maksimum 5MB.</div>
-                                <div class="invalid-feedback">Lütfen geçerli bir dosya seçin.</div>
-                            </div>
-
-                            <!-- Preferences -->
-                            <div class="mb-3">
-                                <label for="contactMethod" class="form-label">Tercih Edilen İletişim Yöntemi*</label>
-                                <select class="form-select" id="contactMethod" name="contactMethod" required>
-                                    <option value="">Seçiniz</option>
-                                    <option value="Email">E-posta</option>
-                                    <option value="Phone">Telefon</option>
-                                    <option value="WhatsApp">WhatsApp</option>
-                                    <option value="LinkedIn">LinkedIn</option>
-                                    <option value="Video Call">Video Görüşme</option>
-                                </select>
-                                <div class="invalid-feedback">Lütfen iletişim yöntemi seçin.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="bestTime" class="form-label">En Uygun İletişim Zamanı</label>
-                                <select class="form-select" id="bestTime" name="bestTime">
-                                    <option value="">Seçiniz</option>
-                                    <option value="09:00-12:00">09:00-12:00</option>
-                                    <option value="12:00-15:00">12:00-15:00</option>
-                                    <option value="15:00-18:00">15:00-18:00</option>
-                                    <option value="18:00-21:00">18:00-21:00</option>
-                                    <option value="Esnek">Esnek</option>
-                                </select>
-                                <div class="invalid-feedback">Lütfen uygun zaman dilimi seçin.</div>
-                            </div>
-
-                            <!-- Newsletter and Agreement -->
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="newsletter" name="newsletter" value="yes">
-                                    <label class="form-check-label" for="newsletter">E-posta bülteni almak istiyorum</label>
+                                    <small>1 (Başlangıç)</small>
+                                    <small id="experienceValue">5</small>
+                                    <small>10 (Uzman)</small>
                                 </div>
                             </div>
 
+                            <!-- File Input -->
                             <div class="mb-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="marketing" name="marketing" value="yes">
-                                    <label class="form-check-label" for="marketing">Pazarlama e-postaları almak istiyorum</label>
-                                </div>
+                                <label for="attachment" class="form-label">Dosya Ekle</label>
+                                <input type="file" class="form-control" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.txt">
+                                <div class="invalid-feedback">Geçerli bir dosya seçin.</div>
                             </div>
                             
+                            <!-- Textarea -->
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mesajınız*</label>
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Mesajınızı buraya yazın..."></textarea>
+                                <div class="invalid-feedback">Mesaj alanı zorunludur.</div>
+                            </div>
+
+                            <!-- Required Checkbox -->
                             <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="agreement" name="agreement" required>
+                                <input type="checkbox" class="form-check-input" id="agreement" name="agreement">
                                 <label class="form-check-label" for="agreement">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Kişisel Verilerin Korunması</a> kapsamında verilerimin işlenmesine izin veriyorum.*
+                                    Kişisel verilerimin işlenmesine izin veriyorum.*
                                 </label>
-                                <div class="invalid-feedback">Devam etmek için bu alanı işaretlemeniz gerekmektedir.</div>
+                                <div class="invalid-feedback">Bu alanı işaretlemeniz gerekir.</div>
                             </div>
                             
-                            <div class="d-grid gap-2 d-md-flex">
-                                <button type="button" id="validateJS" class="btn btn-primary flex-fill">
-                                    <i class="bi bi-check-circle me-2"></i>JavaScript ile Doğrula
+                            <!-- Validation Buttons -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" id="validateJS" class="btn btn-primary">
+                                    <i class="bi bi-code-slash me-2"></i>JavaScript ile Doğrula
                                 </button>
-                                <button type="button" id="validateVue" class="btn btn-success flex-fill">
-                                    <i class="bi bi-shield-check me-2"></i>Vue.js ile Doğrula
+                                <button type="button" id="validateVue" class="btn btn-success">
+                                    <i class="bi bi-check2-square me-2"></i>Vue.js ile Doğrula
                                 </button>
                                 <button type="reset" class="btn btn-secondary">
                                     <i class="bi bi-arrow-clockwise me-2"></i>Temizle
-                                </button>
-                                <button type="submit" class="btn btn-danger" disabled id="submitBtn">
-                                    <i class="bi bi-send me-2"></i>Gönder
                                 </button>
                             </div>
                         </form>
@@ -401,25 +255,6 @@
             </div>
         </div>
     </main>
-
-    <!-- Privacy Modal -->
-    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="privacyModalLabel">Kişisel Verilerin Korunması</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bu form aracılığıyla toplanan kişisel verileriniz, size daha iyi hizmet verebilmek amacıyla kullanılacaktır. Verileriniz üçüncü şahıslarla paylaşılmayacak ve güvenli bir şekilde saklanacaktır.</p>
-                    <p>Kişisel verilerinizin işlenmesiyle ilgili daha detaylı bilgi için bizimle iletişime geçebilirsiniz.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
@@ -431,657 +266,313 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Vue.js (CDN) -->
+    <!-- Vue.js CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     
-    <!-- Budget Range Display Update -->
+    <!-- Experience Range Display -->
     <script>
-        document.getElementById('budget').addEventListener('input', function() {
-            const value = parseInt(this.value);
-            const display = document.getElementById('budgetDisplay');
-            if (value >= 50000) {
-                display.textContent = '50,000₺+';
-            } else {
-                display.textContent = value.toLocaleString('tr-TR') + '₺';
-            }
+        document.getElementById('experience').addEventListener('input', function() {
+            document.getElementById('experienceValue').textContent = this.value;
         });
     </script>
     
-    <!-- Form validation with native JavaScript -->
+    <!-- JavaScript Validation -->
     <script>
-        // Get form elements
-        const contactForm = document.getElementById('contactForm');
-        const validateJSBtn = document.getElementById('validateJS');
-        const validateVueBtn = document.getElementById('validateVue');
-        const submitBtn = document.getElementById('submitBtn');
-        const validationFeedback = document.getElementById('validationFeedback');
-        
-        // Native JavaScript Validation
-        validateJSBtn.addEventListener('click', function() {
-            // Reset previous validation
-            resetValidation();
-            
-            let isValid = true;
-            let errorMessages = [];
-            let warningMessages = [];
-            
-            // Get form data
-            const formData = new FormData(contactForm);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                if (data[key]) {
-                    if (Array.isArray(data[key])) {
-                        data[key].push(value);
-                    } else {
-                        data[key] = [data[key], value];
-                    }
-                } else {
-                    data[key] = value;
-                }
-            }
-            
-            // Required field validations
-            if (!data.firstName || data.firstName.trim().length < 2) {
-                markInvalid('firstName');
-                errorMessages.push('Ad en az 2 karakter olmalıdır.');
-                isValid = false;
-            }
-            
-            if (!data.lastName || data.lastName.trim().length < 2) {
-                markInvalid('lastName');
-                errorMessages.push('Soyad en az 2 karakter olmalıdır.');
-                isValid = false;
-            }
-            
-            if (!data.email) {
-                markInvalid('email');
-                errorMessages.push('E-posta alanı zorunludur.');
-                isValid = false;
-            } else if (!isValidEmail(data.email)) {
-                markInvalid('email');
-                errorMessages.push('Geçerli bir e-posta adresi girmelisiniz.');
-                isValid = false;
-            }
-            
-            if (!data.phone) {
-                markInvalid('phone');
-                errorMessages.push('Telefon numarası zorunludur.');
-                isValid = false;
-            } else if (!isValidPhone(data.phone)) {
-                markInvalid('phone');
-                errorMessages.push('Geçerli bir telefon numarası girmelisiniz (sadece rakamlar, +, -, boşluk, parantez).');
-                isValid = false;
-            }
-            
-            if (!data.country) {
-                markInvalid('country');
-                errorMessages.push('Ülke seçimi zorunludur.');
-                isValid = false;
-            }
-            
-            if (!data.subject) {
-                markInvalid('subject');
-                errorMessages.push('Konu seçimi zorunludur.');
-                isValid = false;
-            }
-            
-            if (!data.priority) {
-                errorMessages.push('Öncelik düzeyi seçimi zorunludur.');
-                isValid = false;
-            }
-            
-            if (!data.message || data.message.trim().length < 10) {
-                markInvalid('message');
-                errorMessages.push('Mesaj en az 10 karakter olmalıdır.');
-                isValid = false;
-            } else if (data.message.trim().length > 1000) {
-                markInvalid('message');
-                errorMessages.push('Mesaj en fazla 1000 karakter olabilir.');
-                isValid = false;
-            }
-            
-            if (!data.contactMethod) {
-                markInvalid('contactMethod');
-                errorMessages.push('İletişim yöntemi seçimi zorunludur.');
-                isValid = false;
-            }
-            
-            if (!data.agreement) {
-                markInvalid('agreement');
-                errorMessages.push('Kullanım koşullarını kabul etmelisiniz.');
-                isValid = false;
-            }
-            
-            // Optional but validated fields
-            if (data.age && (data.age < 13 || data.age > 100)) {
-                markInvalid('age');
-                errorMessages.push('Yaş 13-100 arasında olmalıdır.');
-                isValid = false;
-            }
-            
-            if (data.website && !isValidURL(data.website)) {
-                markInvalid('website');
-                errorMessages.push('Geçerli bir web sitesi URL\'i girin (http:// veya https:// ile başlamalı).');
-                isValid = false;
-            }
-            
-            if (data.birthDate && !isValidBirthDate(data.birthDate)) {
-                markInvalid('birthDate');
-                errorMessages.push('Geçerli bir doğum tarihi girin.');
-                isValid = false;
-            }
-            
-            // File validation
-            const fileInput = document.getElementById('attachment');
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                if (!isValidFile(file)) {
-                    markInvalid('attachment');
-                    errorMessages.push('Dosya geçersiz. Sadece PDF, DOC, DOCX, TXT, JPG, PNG dosyaları kabul edilir ve 5MB\'dan küçük olmalıdır.');
-                    isValid = false;
-                }
-            }
-            
-            // Warning messages
-            if (!data.city) {
-                warningMessages.push('Şehir bilgisi doldurulmamış.');
-            }
-            
-            if (!data.bestTime) {
-                warningMessages.push('En uygun iletişim zamanı belirtilmemiş.');
-            }
-            
-            // Show validation result
-            if (isValid) {
-                validationFeedback.classList.remove('d-none', 'alert-danger');
-                validationFeedback.classList.add('alert-success');
-                let successMessage = '<strong><i class="bi bi-check-circle me-2"></i>Form başarıyla doğrulandı!</strong>';
-                
-                if (warningMessages.length > 0) {
-                    successMessage += '<div class="mt-2"><strong>Uyarılar:</strong><ul>' + 
-                        warningMessages.map(msg => `<li>${msg}</li>`).join('') + '</ul></div>';
-                }
-                
-                successMessage += '<p class="mt-2">Gönder butonuna tıklayarak devam edebilirsiniz.</p>';
-                validationFeedback.innerHTML = successMessage;
-                submitBtn.disabled = false;
-                
-                // Mark valid fields
-                markValidFields();
-            } else {
-                validationFeedback.classList.remove('d-none', 'alert-success');
-                validationFeedback.classList.add('alert-danger');
-                validationFeedback.innerHTML = '<strong><i class="bi bi-x-circle me-2"></i>Lütfen aşağıdaki hataları düzeltin:</strong><ul>' + 
-                    errorMessages.map(msg => `<li>${msg}</li>`).join('') + '</ul>';
-                submitBtn.disabled = true;
-            }
+        document.getElementById('validateJS').addEventListener('click', function() {
+            validateWithJavaScript();
         });
-        
-        // Helper functions
-        function resetValidation() {
-            // Remove all validation classes
-            const formElements = contactForm.elements;
-            for (let i = 0; i < formElements.length; i++) {
-                formElements[i].classList.remove('is-invalid', 'is-valid');
+
+        function validateWithJavaScript() {
+            clearValidation();
+            let isValid = true;
+            let errors = [];
+
+            // Get form data
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+            const agreement = document.getElementById('agreement').checked;
+            
+            // Priority radio validation
+            const priority = document.querySelector('input[name="priority"]:checked');
+
+            // Required field validations
+            if (!firstName) {
+                markInvalid('firstName');
+                errors.push('Ad alanı zorunludur.');
+                isValid = false;
             }
-            validationFeedback.classList.add('d-none');
-            submitBtn.disabled = true;
-        }
-        
-        function markInvalid(elementId) {
-            document.getElementById(elementId).classList.add('is-invalid');
-            document.getElementById(elementId).classList.remove('is-valid');
-        }
-        
-        function markValid(elementId) {
-            document.getElementById(elementId).classList.add('is-valid');
-            document.getElementById(elementId).classList.remove('is-invalid');
-        }
-        
-        function markValidFields() {
-            const formElements = contactForm.elements;
-            for (let i = 0; i < formElements.length; i++) {
-                if (!formElements[i].classList.contains('is-invalid') && formElements[i].value.trim() !== '') {
-                    formElements[i].classList.add('is-valid');
-                }
+
+            if (!lastName) {
+                markInvalid('lastName');
+                errors.push('Soyad alanı zorunludur.');
+                isValid = false;
             }
+
+            if (!email) {
+                markInvalid('email');
+                errors.push('E-posta alanı zorunludur.');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                markInvalid('email');
+                errors.push('Geçerli bir e-posta adresi girin.');
+                isValid = false;
+            }
+
+            if (!phone) {
+                markInvalid('phone');
+                errors.push('Telefon alanı zorunludur.');
+                isValid = false;
+            } else if (!isValidPhone(phone)) {
+                markInvalid('phone');
+                errors.push('Telefon numarası sadece rakam içermelidir.');
+                isValid = false;
+            }
+
+            if (!subject) {
+                markInvalid('subject');
+                errors.push('Konu seçimi zorunludur.');
+                isValid = false;
+            }
+
+            if (!priority) {
+                errors.push('Öncelik düzeyi seçimi zorunludur.');
+                isValid = false;
+            }
+
+            if (!message) {
+                markInvalid('message');
+                errors.push('Mesaj alanı zorunludur.');
+                isValid = false;
+            }
+
+            if (!agreement) {
+                markInvalid('agreement');
+                errors.push('Veri işleme iznini onaylamanız gerekir.');
+                isValid = false;
+            }
+
+            // Show validation result
+            showValidationResult(isValid, errors, 'JavaScript');
         }
-        
+
         function isValidEmail(email) {
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return regex.test(email);
         }
-        
+
         function isValidPhone(phone) {
-            // Turkish phone format: +90XXXXXXXXXX, 05XXXXXXXXX, or international formats
-            const regex = /^(\+\d{1,3}[- ]?)?\d{10,15}$|^(\+\d{1,3}[- ]?)?\(\d{3}\)[- ]?\d{3}[- ]?\d{4}$/;
-            return regex.test(phone.replace(/[\s\-\(\)]/g, ''));
+            const regex = /^[0-9]+$/;
+            return regex.test(phone);
         }
-        
-        function isValidURL(url) {
-            try {
-                const urlObj = new URL(url);
-                return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
-            } catch {
-                return false;
+
+        function markInvalid(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-invalid');
+            field.classList.remove('is-valid');
+        }
+
+        function markValid(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-valid');
+            field.classList.remove('is-invalid');
+        }
+
+        function clearValidation() {
+            const fields = document.querySelectorAll('.form-control, .form-select, .form-check-input');
+            fields.forEach(field => {
+                field.classList.remove('is-invalid', 'is-valid');
+            });
+            document.getElementById('validationFeedback').classList.add('d-none');
+        }
+
+        function showValidationResult(isValid, errors, method) {
+            const feedback = document.getElementById('validationFeedback');
+            feedback.classList.remove('d-none');
+
+            if (isValid) {
+                feedback.className = 'alert alert-success';
+                feedback.innerHTML = `<strong><i class="bi bi-check-circle me-2"></i>${method} Doğrulama Başarılı!</strong><br>Tüm alanlar doğru şekilde doldurulmuş.`;
+            } else {
+                feedback.className = 'alert alert-danger';
+                feedback.innerHTML = `<strong><i class="bi bi-x-circle me-2"></i>${method} Doğrulama Hatası!</strong><br><ul class="mb-0 mt-2">` + 
+                    errors.map(error => `<li>${error}</li>`).join('') + '</ul>';
             }
         }
-        
-        function isValidBirthDate(birthDate) {
-            const date = new Date(birthDate);
-            const today = new Date();
-            const minDate = new Date('1900-01-01');
-            const maxDate = new Date(today.getFullYear() - 13, today.getMonth(), today.getDate());
-            
-            return date >= minDate && date <= maxDate;
-        }
-        
-        function isValidFile(file) {
-            const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'image/jpeg', 'image/png'];
-            const maxSize = 5 * 1024 * 1024; // 5MB
-            
-            return allowedTypes.includes(file.type) && file.size <= maxSize;
-        }
-        
-        // Reset form on page load or form reset
-        window.addEventListener('load', resetValidation);
-        contactForm.addEventListener('reset', function() {
-            setTimeout(resetValidation, 10); // Small delay to ensure form reset is complete
+
+        // Reset form
+        document.querySelector('button[type="reset"]').addEventListener('click', function() {
+            setTimeout(clearValidation, 10);
         });
     </script>
-    
-    <!-- Form validation with Vue.js -->
+
+    <!-- Vue.js Validation -->
     <script>
-        // Create Vue app
         const { createApp } = Vue;
-        
+
         createApp({
             data() {
                 return {
-                    formState: {
+                    form: {
                         firstName: '',
                         lastName: '',
                         email: '',
                         phone: '',
                         birthDate: '',
                         age: '',
-                        address: '',
-                        city: '',
-                        country: '',
-                        website: '',
                         subject: '',
                         priority: '',
-                        message: '',
-                        gender: '',
                         interests: [],
-                        experience: '',
-                        budget: '',
+                        experience: 5,
                         attachment: '',
-                        contactMethod: '',
-                        bestTime: '',
-                        newsletter: false,
-                        marketing: false,
+                        message: '',
                         agreement: false
                     },
                     errors: [],
-                    warnings: [],
-                    isValidated: false,
                     isValid: false
                 }
             },
             methods: {
-                validateForm() {
-                    // Reset previous validation
+                validateWithVue() {
+                    this.clearValidation();
+                    this.getFormData();
                     this.errors = [];
-                    this.warnings = [];
-                    this.isValidated = true;
                     this.isValid = true;
-                    
-                    // Get form values
-                    this.getFormValues();
-                    
-                    // Clear previous validation states
-                    this.clearValidationClasses();
-                    
-                    // Required field validations
-                    this.validateRequiredFields();
-                    
-                    // Optional field validations
-                    this.validateOptionalFields();
-                    
-                    // Show validation result
-                    this.showValidationResult();
-                },
-                
-                getFormValues() {
-                    this.formState.firstName = document.getElementById('firstName').value.trim();
-                    this.formState.lastName = document.getElementById('lastName').value.trim();
-                    this.formState.email = document.getElementById('email').value.trim();
-                    this.formState.phone = document.getElementById('phone').value.trim();
-                    this.formState.birthDate = document.getElementById('birthDate').value;
-                    this.formState.age = document.getElementById('age').value;
-                    this.formState.address = document.getElementById('address').value.trim();
-                    this.formState.city = document.getElementById('city').value;
-                    this.formState.country = document.getElementById('country').value;
-                    this.formState.website = document.getElementById('website').value.trim();
-                    this.formState.subject = document.getElementById('subject').value;
-                    this.formState.message = document.getElementById('message').value.trim();
-                    this.formState.experience = document.getElementById('experience').value;
-                    this.formState.budget = document.getElementById('budget').value;
-                    this.formState.contactMethod = document.getElementById('contactMethod').value;
-                    this.formState.bestTime = document.getElementById('bestTime').value;
-                    this.formState.agreement = document.getElementById('agreement').checked;
-                    this.formState.newsletter = document.getElementById('newsletter').checked;
-                    this.formState.marketing = document.getElementById('marketing').checked;
-                    
-                    // Priority (radio buttons)
-                    const priorityInputs = document.querySelectorAll('input[name="priority"]');
-                    for (const input of priorityInputs) {
-                        if (input.checked) {
-                            this.formState.priority = input.value;
-                            break;
-                        }
-                    }
-                    
-                    // Gender (radio buttons)
-                    const genderInputs = document.querySelectorAll('input[name="gender"]');
-                    for (const input of genderInputs) {
-                        if (input.checked) {
-                            this.formState.gender = input.value;
-                            break;
-                        }
-                    }
-                    
-                    // Interests (checkboxes)
-                    this.formState.interests = [];
-                    const interestInputs = document.querySelectorAll('input[name="interests[]"]');
-                    for (const input of interestInputs) {
-                        if (input.checked) {
-                            this.formState.interests.push(input.value);
-                        }
-                    }
-                    
-                    // File
-                    const fileInput = document.getElementById('attachment');
-                    if (fileInput.files.length > 0) {
-                        this.formState.attachment = fileInput.files[0].name;
-                    }
-                },
-                
-                clearValidationClasses() {
-                    const formElements = document.getElementById('contactForm').elements;
-                    for (let i = 0; i < formElements.length; i++) {
-                        formElements[i].classList.remove('is-invalid', 'is-valid');
-                    }
-                },
-                
-                validateRequiredFields() {
-                    // First Name
-                    if (!this.formState.firstName || this.formState.firstName.length < 2) {
+
+                    // Validation logic
+                    if (!this.form.firstName.trim()) {
                         this.markInvalid('firstName');
-                        this.errors.push('Ad en az 2 karakter olmalıdır.');
+                        this.errors.push('Ad alanı zorunludur.');
                         this.isValid = false;
-                    } else {
-                        this.markValid('firstName');
                     }
-                    
-                    // Last Name
-                    if (!this.formState.lastName || this.formState.lastName.length < 2) {
+
+                    if (!this.form.lastName.trim()) {
                         this.markInvalid('lastName');
-                        this.errors.push('Soyad en az 2 karakter olmalıdır.');
+                        this.errors.push('Soyad alanı zorunludur.');
                         this.isValid = false;
-                    } else {
-                        this.markValid('lastName');
                     }
-                    
-                    // Email
-                    if (!this.formState.email) {
+
+                    if (!this.form.email.trim()) {
                         this.markInvalid('email');
                         this.errors.push('E-posta alanı zorunludur.');
                         this.isValid = false;
-                    } else if (!this.isValidEmail(this.formState.email)) {
+                    } else if (!this.isValidEmail(this.form.email)) {
                         this.markInvalid('email');
-                        this.errors.push('Geçerli bir e-posta adresi girmelisiniz.');
+                        this.errors.push('Geçerli bir e-posta adresi girin.');
                         this.isValid = false;
-                    } else {
-                        this.markValid('email');
                     }
-                    
-                    // Phone
-                    if (!this.formState.phone) {
+
+                    if (!this.form.phone.trim()) {
                         this.markInvalid('phone');
-                        this.errors.push('Telefon numarası zorunludur.');
+                        this.errors.push('Telefon alanı zorunludur.');
                         this.isValid = false;
-                    } else if (!this.isValidPhone(this.formState.phone)) {
+                    } else if (!this.isValidPhone(this.form.phone)) {
                         this.markInvalid('phone');
-                        this.errors.push('Geçerli bir telefon numarası girmelisiniz.');
+                        this.errors.push('Telefon numarası sadece rakam içermelidir.');
                         this.isValid = false;
-                    } else {
-                        this.markValid('phone');
                     }
-                    
-                    // Country
-                    if (!this.formState.country) {
-                        this.markInvalid('country');
-                        this.errors.push('Ülke seçimi zorunludur.');
-                        this.isValid = false;
-                    } else {
-                        this.markValid('country');
-                    }
-                    
-                    // Subject
-                    if (!this.formState.subject) {
+
+                    if (!this.form.subject) {
                         this.markInvalid('subject');
                         this.errors.push('Konu seçimi zorunludur.');
                         this.isValid = false;
-                    } else {
-                        this.markValid('subject');
                     }
-                    
-                    // Priority
-                    if (!this.formState.priority) {
+
+                    if (!this.form.priority) {
                         this.errors.push('Öncelik düzeyi seçimi zorunludur.');
                         this.isValid = false;
                     }
-                    
-                    // Message
-                    if (!this.formState.message || this.formState.message.length < 10) {
+
+                    if (!this.form.message.trim()) {
                         this.markInvalid('message');
-                        this.errors.push('Mesaj en az 10 karakter olmalıdır.');
+                        this.errors.push('Mesaj alanı zorunludur.');
                         this.isValid = false;
-                    } else if (this.formState.message.length > 1000) {
-                        this.markInvalid('message');
-                        this.errors.push('Mesaj en fazla 1000 karakter olabilir.');
-                        this.isValid = false;
-                    } else {
-                        this.markValid('message');
                     }
-                    
-                    // Contact Method
-                    if (!this.formState.contactMethod) {
-                        this.markInvalid('contactMethod');
-                        this.errors.push('İletişim yöntemi seçimi zorunludur.');
-                        this.isValid = false;
-                    } else {
-                        this.markValid('contactMethod');
-                    }
-                    
-                    // Agreement
-                    if (!this.formState.agreement) {
+
+                    if (!this.form.agreement) {
                         this.markInvalid('agreement');
-                        this.errors.push('Kullanım koşullarını kabul etmelisiniz.');
+                        this.errors.push('Veri işleme iznini onaylamanız gerekir.');
                         this.isValid = false;
-                    } else {
-                        this.markValid('agreement');
                     }
+
+                    this.showValidationResult();
                 },
-                
-                validateOptionalFields() {
-                    // Age validation
-                    if (this.formState.age && (this.formState.age < 13 || this.formState.age > 100)) {
-                        this.markInvalid('age');
-                        this.errors.push('Yaş 13-100 arasında olmalıdır.');
-                        this.isValid = false;
-                    } else if (this.formState.age) {
-                        this.markValid('age');
-                    }
-                    
-                    // Website validation
-                    if (this.formState.website && !this.isValidURL(this.formState.website)) {
-                        this.markInvalid('website');
-                        this.errors.push('Geçerli bir web sitesi URL\'i girin.');
-                        this.isValid = false;
-                    } else if (this.formState.website) {
-                        this.markValid('website');
-                    }
-                    
-                    // Birth date validation
-                    if (this.formState.birthDate && !this.isValidBirthDate(this.formState.birthDate)) {
-                        this.markInvalid('birthDate');
-                        this.errors.push('Geçerli bir doğum tarihi girin.');
-                        this.isValid = false;
-                    } else if (this.formState.birthDate) {
-                        this.markValid('birthDate');
-                    }
-                    
-                    // File validation
+
+                getFormData() {
+                    this.form.firstName = document.getElementById('firstName').value.trim();
+                    this.form.lastName = document.getElementById('lastName').value.trim();
+                    this.form.email = document.getElementById('email').value.trim();
+                    this.form.phone = document.getElementById('phone').value.trim();
+                    this.form.birthDate = document.getElementById('birthDate').value;
+                    this.form.age = document.getElementById('age').value;
+                    this.form.subject = document.getElementById('subject').value;
+                    this.form.message = document.getElementById('message').value.trim();
+                    this.form.agreement = document.getElementById('agreement').checked;
+                    this.form.experience = document.getElementById('experience').value;
+
+                    // Get priority radio value
+                    const priorityRadio = document.querySelector('input[name="priority"]:checked');
+                    this.form.priority = priorityRadio ? priorityRadio.value : '';
+
+                    // Get interests checkboxes
+                    const interestCheckboxes = document.querySelectorAll('input[name="interests[]"]:checked');
+                    this.form.interests = Array.from(interestCheckboxes).map(cb => cb.value);
+
+                    // Get file input
                     const fileInput = document.getElementById('attachment');
-                    if (fileInput.files.length > 0) {
-                        const file = fileInput.files[0];
-                        if (!this.isValidFile(file)) {
-                            this.markInvalid('attachment');
-                            this.errors.push('Dosya geçersiz. Sadece PDF, DOC, DOCX, TXT, JPG, PNG dosyaları kabul edilir ve 5MB\'dan küçük olmalıdır.');
-                            this.isValid = false;
-                        } else {
-                            this.markValid('attachment');
-                        }
-                    }
-                    
-                    // Warning messages for optional but recommended fields
-                    if (!this.formState.city) {
-                        this.warnings.push('Şehir bilgisi doldurulmamış.');
-                    }
-                    
-                    if (!this.formState.bestTime) {
-                        this.warnings.push('En uygun iletişim zamanı belirtilmemiş.');
-                    }
-                    
-                    if (this.formState.interests.length === 0) {
-                        this.warnings.push('Hiç ilgi alanı seçilmemiş.');
-                    }
+                    this.form.attachment = fileInput.files.length > 0 ? fileInput.files[0].name : '';
                 },
-                
-                showValidationResult() {
-                    const validationFeedback = document.getElementById('validationFeedback');
-                    const submitBtn = document.getElementById('submitBtn');
-                    
-                    if (this.isValid) {
-                        validationFeedback.classList.remove('d-none', 'alert-danger');
-                        validationFeedback.classList.add('alert-success');
-                        
-                        let successMessage = `
-                            <strong><i class="bi bi-shield-check me-2"></i>Vue.js ile form başarıyla doğrulandı!</strong>
-                            <div class="mt-3">
-                                <h6>Gönderilecek Bilgiler:</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <ul class="list-unstyled small">
-                                            <li><strong>Ad Soyad:</strong> ${this.formState.firstName} ${this.formState.lastName}</li>
-                                            <li><strong>E-posta:</strong> ${this.formState.email}</li>
-                                            <li><strong>Telefon:</strong> ${this.formState.phone}</li>
-                                            <li><strong>Ülke:</strong> ${this.formState.country}</li>
-                                            <li><strong>Şehir:</strong> ${this.formState.city || 'Belirtilmedi'}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="list-unstyled small">
-                                            <li><strong>Konu:</strong> ${this.formState.subject}</li>
-                                            <li><strong>Öncelik:</strong> ${this.formState.priority}</li>
-                                            <li><strong>İletişim Yöntemi:</strong> ${this.formState.contactMethod}</li>
-                                            <li><strong>Cinsiyet:</strong> ${this.formState.gender || 'Belirtilmedi'}</li>
-                                            <li><strong>İlgi Alanları:</strong> ${this.formState.interests.length ? this.formState.interests.join(', ') : 'Belirtilmedi'}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        
-                        if (this.warnings.length > 0) {
-                            successMessage += `
-                                <div class="mt-2 p-2 bg-warning bg-opacity-10 border border-warning rounded">
-                                    <strong><i class="bi bi-exclamation-triangle me-2"></i>Uyarılar:</strong>
-                                    <ul class="small mb-0 mt-1">
-                                        ${this.warnings.map(msg => `<li>${msg}</li>`).join('')}
-                                    </ul>
-                                </div>
-                            `;
-                        }
-                        
-                        successMessage += '<p class="mt-3 mb-0">Gönder butonuna tıklayarak devam edebilirsiniz.</p>';
-                        validationFeedback.innerHTML = successMessage;
-                        submitBtn.disabled = false;
-                    } else {
-                        validationFeedback.classList.remove('d-none', 'alert-success');
-                        validationFeedback.classList.add('alert-danger');
-                        validationFeedback.innerHTML = `
-                            <strong><i class="bi bi-x-circle me-2"></i>Lütfen aşağıdaki hataları düzeltin:</strong>
-                            <ul class="mt-2 mb-0">
-                                ${this.errors.map(msg => `<li>${msg}</li>`).join('')}
-                            </ul>
-                        `;
-                        submitBtn.disabled = true;
-                    }
-                },
-                
-                markInvalid(elementId) {
-                    document.getElementById(elementId).classList.add('is-invalid');
-                    document.getElementById(elementId).classList.remove('is-valid');
-                },
-                
-                markValid(elementId) {
-                    document.getElementById(elementId).classList.add('is-valid');
-                    document.getElementById(elementId).classList.remove('is-invalid');
-                },
-                
+
                 isValidEmail(email) {
-                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return regex.test(email);
                 },
-                
+
                 isValidPhone(phone) {
-                    const regex = /^(\+\d{1,3}[- ]?)?\d{10,15}$|^(\+\d{1,3}[- ]?)?\(\d{3}\)[- ]?\d{3}[- ]?\d{4}$/;
-                    return regex.test(phone.replace(/[\s\-\(\)]/g, ''));
+                    const regex = /^[0-9]+$/;
+                    return regex.test(phone);
                 },
-                
-                isValidURL(url) {
-                    try {
-                        const urlObj = new URL(url);
-                        return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
-                    } catch {
-                        return false;
+
+                markInvalid(fieldId) {
+                    const field = document.getElementById(fieldId);
+                    field.classList.add('is-invalid');
+                    field.classList.remove('is-valid');
+                },
+
+                markValid(fieldId) {
+                    const field = document.getElementById(fieldId);
+                    field.classList.add('is-valid');
+                    field.classList.remove('is-invalid');
+                },
+
+                clearValidation() {
+                    const fields = document.querySelectorAll('.form-control, .form-select, .form-check-input');
+                    fields.forEach(field => {
+                        field.classList.remove('is-invalid', 'is-valid');
+                    });
+                    document.getElementById('validationFeedback').classList.add('d-none');
+                },
+
+                showValidationResult() {
+                    const feedback = document.getElementById('validationFeedback');
+                    feedback.classList.remove('d-none');
+
+                    if (this.isValid) {
+                        feedback.className = 'alert alert-success';
+                        feedback.innerHTML = `<strong><i class="bi bi-check-circle me-2"></i>Vue.js Doğrulama Başarılı!</strong><br>Tüm alanlar doğru şekilde doldurulmuş.`;
+                    } else {
+                        feedback.className = 'alert alert-danger';
+                        feedback.innerHTML = `<strong><i class="bi bi-x-circle me-2"></i>Vue.js Doğrulama Hatası!</strong><br><ul class="mb-0 mt-2">` + 
+                            this.errors.map(error => `<li>${error}</li>`).join('') + '</ul>';
                     }
-                },
-                
-                isValidBirthDate(birthDate) {
-                    const date = new Date(birthDate);
-                    const today = new Date();
-                    const minDate = new Date('1900-01-01');
-                    const maxDate = new Date(today.getFullYear() - 13, today.getMonth(), today.getDate());
-                    
-                    return date >= minDate && date <= maxDate;
-                },
-                
-                isValidFile(file) {
-                    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'image/jpeg', 'image/png'];
-                    const maxSize = 5 * 1024 * 1024; // 5MB
-                    
-                    return allowedTypes.includes(file.type) && file.size <= maxSize;
                 }
             },
             mounted() {
-                // Attach event handler to Vue.js validate button
                 document.getElementById('validateVue').addEventListener('click', () => {
-                    this.validateForm();
+                    this.validateWithVue();
                 });
             }
         }).mount('#contactForm');
